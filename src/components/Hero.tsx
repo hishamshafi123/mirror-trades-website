@@ -1,7 +1,7 @@
 import { getDictionary } from '@/lib/dictionaries'
 
 export default async function Hero({ lang }: { lang: string }) {
-  const dict = await getDictionary(lang)
+  const dict = await getDictionary(lang) as any
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center text-center">
       <div className="absolute inset-0 bg-background-dark opacity-50"></div>
