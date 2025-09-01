@@ -1,7 +1,7 @@
 import { getDictionary } from '@/lib/dictionaries'
 
 export default async function Explanation({ lang }: { lang: string }) {
-  const dict = await getDictionary(lang) as any // Type cast to avoid unknown type issues
+  const dict = await getDictionary(lang)
   return (
     <section id="about" className="py-20 bg-surface-dark">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
