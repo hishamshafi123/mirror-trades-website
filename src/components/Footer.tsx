@@ -1,4 +1,5 @@
 import { Instagram, Twitter, Youtube } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
           <div className="text-center md:text-left mb-4 md:mb-0">
             <p className="text-text-secondary">&copy; {new Date().getFullYear()} Mirror Trades. All rights reserved.</p>
             <p className="text-sm text-text-secondary">
-              <a href="/privacy-policy" className="hover:text-primary-gold">Privacy Policy</a> | <a href="/terms-of-service" className="hover:text-primary-gold">Terms of Service</a>
+              <Link href="/privacy-policy" className="hover:text-primary-gold">Privacy Policy</Link> | <Link href="/terms-of-service" className="hover:text-primary-gold">Terms of Service</Link>
             </p>
           </div>
           <div className="flex space-x-4">

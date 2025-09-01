@@ -1,7 +1,6 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { i18n } from '../../i18n-config'
 
 export default function LanguageSwitcher() {
   const pathname = usePathname()

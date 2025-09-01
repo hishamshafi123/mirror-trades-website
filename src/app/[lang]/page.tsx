@@ -9,7 +9,8 @@ import Faq from '@/components/Faq'
 import Newsletter from '@/components/Newsletter'
 
 export default async function Home({ params: { lang } }: { params: { lang: string } }) {
-  const dict = await getDictionary(lang)
+  // Dictionary loaded for potential future use
+  await getDictionary(lang)
   return (
     <main>
       <Hero lang={lang} />

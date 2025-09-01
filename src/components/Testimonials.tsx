@@ -48,7 +48,7 @@ export default function Testimonials() {
               {testimonials.map((testimonial) => (
                 <div key={testimonial.id} className="w-full flex-shrink-0">
                   <div className="bg-background-dark rounded-lg p-8 text-center">
-                    <p className="text-lg text-text-secondary mb-4">"{testimonial.quote}"</p>
+                    <p className="text-lg text-text-secondary mb-4">&quot;{testimonial.quote}&quot;</p>
                     <p className="font-bold text-primary-gold">{testimonial.author}</p>
                     <p className="text-sm text-text-secondary">{testimonial.location}</p>
                   </div>

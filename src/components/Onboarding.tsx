@@ -25,7 +25,7 @@ export default function Onboarding() {
               </div>
               <div className="w-1/2 pl-8 text-left">
                 <h3 className="text-xl font-bold text-primary-gold">Step 2: Complete Onboarding</h3>
-                <p className="text-text-secondary">We'll guide you through the process of setting up your account.</p>
+                <p className="text-text-secondary">We&apos;ll guide you through the process of setting up your account.</p>
               </div>
             </div>
             <div className="flex items-center w-full">
