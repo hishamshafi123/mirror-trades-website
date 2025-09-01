@@ -8,7 +8,8 @@ import Onboarding from '@/components/Onboarding'
 import Faq from '@/components/Faq'
 import Newsletter from '@/components/Newsletter'
 
-export default async function Home({ params: { lang } }: { params: { lang: string } }) {
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
   // Dictionary loaded for potential future use
   await getDictionary(lang)
   return (

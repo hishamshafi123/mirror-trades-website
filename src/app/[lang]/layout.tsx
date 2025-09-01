@@ -17,17 +17,18 @@ export const metadata: Metadata = {
   description: "Bilingual Copy Trading Platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }>) {
+  const { lang } = await params;
   return (
-    <html lang={params.lang}>
+    <html lang={lang}>
       <body className={`${inter.variable} ${roboto_mono.variable} font-sans bg-background-dark text-text-primary antialiased`}>
-        <Header lang={params.lang} />
+        <Header lang={lang} />
         {children}
         <Footer />
         <RiskWarningModal />
