@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "tagline": "Mirror the Experts. Elevate Your Trading.",
+    "subTagline": "Join Mirror Trades and leverage the success of professional traders.",
+    "cta": "Book a Call"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "portfolios": "Portfolios",
+    "testimonials": "Testimonials",
+    "contact": "Contact"
+  },
+  "explanation": {
+    "title": "How Copy Trading Works",
+    "subtitle": "A simple, transparent, and effective way to trade.",
+    "step1_title": "Choose an Expert",
+    "step1_description": "Select from our pool of vetted professional traders.",
+    "step2_title": "Set Your Amount",
+    "step2_description": "Decide how much you want to allocate to copy trading.",
+    "step3_title": "Mirror Trades Automatically",
+    "step3_description": "Our platform automatically copies the trades of your chosen expert to your account."
+  }
+}
