@@ -1,5 +1,3 @@
-import 'server-only'
-
 export interface Dictionary {
   hero: {
     tagline: string;
@@ -126,14 +124,4 @@ export interface Dictionary {
       };
     };
   };
-}
-
-const dictionaries: { [key: string]: () => Promise<Dictionary> } = {
-  en: () => import('@/content/en.json').then((module) => module.default as Dictionary),
-  el: () => import('@/content/el.json').then((module) => module.default as Dictionary),
-}
-
-export const getDictionary = async (locale: string): Promise<Dictionary> => {
-  const dictionary = dictionaries[locale] || dictionaries['en']
-  return dictionary()
 }

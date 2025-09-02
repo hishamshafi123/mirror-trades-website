@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import "../globals.css"; // Adjusted path
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import RiskWarningModal from "@/components/RiskWarningModal";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -30,8 +28,6 @@ export default async function RootLayout({
       <body className={`${inter.variable} ${roboto_mono.variable} font-sans bg-background-dark text-text-primary antialiased`}>
         <Header lang={lang} />
         {children}
-        <Footer />
-        <RiskWarningModal />
       </body>
     </html>
   );

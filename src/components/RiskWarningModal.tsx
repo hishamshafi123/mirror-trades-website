@@ -1,45 +1,153 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AlertTriangle } from 'lucide-react'
+import { AlertTriangle, ExternalLink, X } from 'lucide-react'
+import { Dictionary } from '@/lib/client-dictionaries'
 
-export default function RiskWarningModal() {
-  const [isOpen, setIsOpen] = useState(false)
+interface RiskWarningModalProps {
+  dictionary: Dictionary | null
+}
+
+export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) {
+  const [isVisible, setIsVisible] = useState(false)
+  const [isAccepted, setIsAccepted] = useState(false)
+
+  // Fallback content in case dictionary is not properly loaded
+  const fallbackWarning = {
+    title: "Risk Warning",
+    message: "Trading CFDs and using CopyTrading services involve a high risk of capital loss. Mirror Trades does not provide investment advice. Each investor is fully responsible for their own decisions.",
+    instruction: "Click \"I Understand\" to continue to the website.",
+    acceptButton: "I Understand",
+    riskDisclosureLink: "See full Risk Disclosure",
+    termsLink: "Terms & Conditions"
+  }
+
+  const riskWarning = dictionary?.riskWarning || fallbackWarning
 
   useEffect(() => {
-    // Temporarily always show modal for testing
-    setIsOpen(true)
-    // Uncomment below for normal behavior:
-    // const hasAcknowledged = localStorage.getItem('risk-warning-acknowledged')
-    // if (!hasAcknowledged) {
-    //   setIsOpen(true)
-    // }
-  }, [])
+    // Only proceed if we have the risk warning content
+    if (!dictionary || !dictionary.riskWarning) {
+      console.warn('Risk warning dictionary not loaded, using fallback')
+    }
+    
+    // Check if user has already acknowledged the warning
+    const hasAcknowledged = localStorage.getItem('riskWarningAcknowledged')
+    const acknowledgedDate = localStorage.getItem('riskWarningDate')
+    
+    // Show warning if not acknowledged or if it's been more than 30 days (regulatory compliance)
+    if (!hasAcknowledged || !acknowledgedDate) {
+      setIsVisible(true)
+    } else {
+      const daysSinceAcknowledgment = (Date.now() - parseInt(acknowledgedDate)) / (1000 * 60 * 60 * 24)
+      if (daysSinceAcknowledgment > 30) {
+        setIsVisible(true)
+        // Clear old acknowledgment for re-confirmation
+        localStorage.removeItem('riskWarningAcknowledged')
+        localStorage.removeItem('riskWarningDate')
+      }
+    }
+  }, [dictionary])
 
-  const handleAcknowledge = () => {
-    localStorage.setItem('risk-warning-acknowledged', 'true')
-    setIsOpen(false)
+  const handleAccept = () => {
+    setIsAccepted(true)
+    // Store acknowledgment with timestamp for compliance tracking
+    localStorage.setItem('riskWarningAcknowledged', 'true')
+    localStorage.setItem('riskWarningDate', Date.now().toString())
+    
+    // Smooth fade out animation
+    setTimeout(() => {
+      setIsVisible(false)
+    }, 300)
   }
 
-  if (!isOpen) {
-    return null
+  const handleLinkClick = (url: string) => {
+    // Open compliance pages in new tab
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
+
+  if (!isVisible) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background-dark/60 backdrop-blur-sm">
-      <div className="bg-surface-dark/95 rounded-lg p-8 max-w-md w-full text-center border-2 border-primary-gold shadow-2xl backdrop-blur-md">
-        <AlertTriangle size={48} className="text-warning-red mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-warning-red mb-4">Risk Warning</h2>
-        <p className="text-text-secondary mb-6 leading-relaxed">
-          Trading CFDs and other leveraged products is highly speculative, carries a high level of risk and is not suitable for all investors. You may sustain a loss of some or all of your invested capital, therefore, you should not speculate with capital that you cannot afford to lose.
-        </p>
-        <button 
-          onClick={handleAcknowledge} 
-          className="bg-primary-gold text-background-dark font-bold py-3 px-8 rounded-md hover:bg-secondary-gold transition-all transform hover:scale-105"
-        >
-          I Acknowledge and Accept the Risks
-        </button>
+    <>
+      {/* Backdrop Overlay - Cannot be dismissed */}
+      <div 
+        className={`fixed inset-0 bg-black/85 backdrop-blur-md z-[9999] transition-opacity duration-300 ${ 
+          isAccepted ? 'opacity-0' : 'opacity-100'
+        }`}
+        style={{ backdropFilter: 'blur(12px)' }}
+      />
+      
+      {/* Modal Container */}
+      <div className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 transition-all duration-300 ${ 
+        isAccepted ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+      }`}> 
+        <div className="bg-gradient-to-br from-red-900/98 to-red-800/98 backdrop-blur-md border-2 border-red-400 rounded-xl max-w-lg w-full mx-auto shadow-2xl ring-1 ring-red-500/50">
+          
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-red-500/20 rounded-full border border-red-500/30">
+                <AlertTriangle className="h-8 w-8 text-red-400" strokeWidth={2.5} />
+              </div>
+              <h2 className="text-2xl font-bold text-white">
+                {riskWarning.title}
+              </h2>
+            </div>
+            {/* Close button disabled for compliance - user must acknowledge */}
+            <div className="p-2 bg-red-800/50 rounded-full border border-red-600/50">
+              <X className="h-5 w-5 text-red-500/70 cursor-not-allowed" />
+            </div>
+          </div>
+
+          {/* Warning Content */}
+          <div className="px-6 pb-4">
+            <div className="bg-red-500/15 border-2 border-red-500/40 rounded-xl p-5 mb-5 shadow-inner">
+              <p className="text-white font-semibold leading-relaxed text-base">
+                {riskWarning.message}
+              </p>
+            </div>
+            
+            <p className="text-red-200 text-sm font-medium mb-5 text-center bg-red-900/30 p-3 rounded-lg border border-red-600/30">
+              {riskWarning.instruction}
+            </p>
+
+            {/* Compliance Links */}
+            <div className="grid grid-cols-1 gap-3 mb-6">
+              <button
+                onClick={() => handleLinkClick('#risk-disclosure')}
+                className="flex items-center justify-center gap-2 text-red-300 hover:text-white transition-colors text-sm py-2 px-4 border border-red-600/50 rounded-lg hover:border-red-400 hover:bg-red-800/30"
+              >
+                <ExternalLink className="h-4 w-4" />
+                {riskWarning.riskDisclosureLink}
+              </button>
+              <button
+                onClick={() => handleLinkClick('#terms-conditions')}
+                className="flex items-center justify-center gap-2 text-red-300 hover:text-white transition-colors text-sm py-2 px-4 border border-red-600/50 rounded-lg hover:border-red-400 hover:bg-red-800/30"
+              >
+                <ExternalLink className="h-4 w-4" />
+                {riskWarning.termsLink}
+              </button>
+            </div>
+          </div>
+
+          {/* Accept Button */}
+          <div className="p-6 pt-0">
+            <button
+              onClick={handleAccept}
+              className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 active:from-red-800 active:to-red-900 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-red-500/50 border-2 border-red-500/50 hover:border-red-400"
+            >
+              <span className="text-lg">{riskWarning.acceptButton}</span>
+            </button>
+            
+            {/* Additional Compliance Text */}
+            <div className="bg-red-900/40 border border-red-600/40 rounded-lg p-3 mt-4">
+              <p className="text-red-300 text-xs text-center leading-relaxed">
+                By clicking &quot;<strong>{riskWarning.acceptButton}</strong>&quot;, you acknowledge that you have read and understood this risk warning and accept full responsibility for your investment decisions. This warning will be shown periodically as required by regulation.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
