@@ -9,9 +9,8 @@ interface RiskWarningModalProps {
 }
 
 export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) {
-  const [isVisible, setIsVisible] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [isAccepted, setIsAccepted] = useState(false)
-  const [isClient, setIsClient] = useState(false)
 
   // Fallback content in case dictionary is not properly loaded
   const fallbackWarning = {
@@ -26,57 +25,60 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
   const riskWarning = dictionary?.riskWarning || fallbackWarning
 
   useEffect(() => {
-    // Mark as client-side to prevent hydration issues
-    setIsClient(true)
-  }, [])
-
-  useEffect(() => {
-    // Only run on client-side to avoid hydration issues
-    if (!isClient) return
-
-    // Only proceed if we have the risk warning content
-    if (!dictionary || !dictionary.riskWarning) {
-      console.warn('Risk warning dictionary not loaded, using fallback')
-    }
-    
-    try {
-      // Check if user has already acknowledged the warning
-      const hasAcknowledged = localStorage.getItem('riskWarningAcknowledged')
-      const acknowledgedDate = localStorage.getItem('riskWarningDate')
-      
-      // Show warning if not acknowledged or if it's been more than 30 days (regulatory compliance)
-      if (!hasAcknowledged || !acknowledgedDate) {
-        setIsVisible(true)
-      } else {
+    // Check localStorage only on client-side
+    const checkRiskWarning = () => {
+      try {
+        // For development/testing - clear storage to always show modal
+        // Remove these lines in production if needed
+        // localStorage.removeItem('riskWarningAcknowledged')
+        // localStorage.removeItem('riskWarningDate')
+        
+        const hasAcknowledged = localStorage.getItem('riskWarningAcknowledged')
+        const acknowledgedDate = localStorage.getItem('riskWarningDate')
+        
+        console.log('Risk warning check:', { hasAcknowledged, acknowledgedDate })
+        
+        if (!hasAcknowledged || !acknowledgedDate) {
+          // First time visitor - show modal
+          console.log('Showing modal for first time visitor')
+          setShowModal(true)
+          return
+        }
+        
+        // Check if acknowledgment is expired (30 days)
         const daysSinceAcknowledgment = (Date.now() - parseInt(acknowledgedDate)) / (1000 * 60 * 60 * 24)
         if (daysSinceAcknowledgment > 30) {
-          setIsVisible(true)
-          // Clear old acknowledgment for re-confirmation
+          console.log('Showing modal - acknowledgment expired')
+          setShowModal(true)
           localStorage.removeItem('riskWarningAcknowledged')
           localStorage.removeItem('riskWarningDate')
+        } else {
+          console.log('Modal not needed - recently acknowledged')
         }
+      } catch (error) {
+        console.error('LocalStorage error, showing modal:', error)
+        setShowModal(true)
       }
-    } catch (error) {
-      console.error('Error accessing localStorage:', error)
-      // Show modal by default if localStorage fails
-      setIsVisible(true)
     }
-  }, [dictionary, isClient])
+
+    // Run after hydration
+    const timer = setTimeout(checkRiskWarning, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleAccept = () => {
     setIsAccepted(true)
     
     try {
-      // Store acknowledgment with timestamp for compliance tracking
       localStorage.setItem('riskWarningAcknowledged', 'true')
       localStorage.setItem('riskWarningDate', Date.now().toString())
     } catch (error) {
       console.error('Error storing localStorage:', error)
     }
     
-    // Smooth fade out animation
+    // Hide modal with animation
     setTimeout(() => {
-      setIsVisible(false)
+      setShowModal(false)
     }, 300)
   }
 
@@ -94,21 +96,21 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
     }
   }
 
-  // Don't render on server-side to prevent hydration issues
-  if (!isClient || !isVisible) return null
+  // Only render when modal should be shown
+  if (!showModal) return null
 
   return (
     <>
       {/* Backdrop Overlay - Cannot be dismissed */}
       <div 
-        className={`fixed inset-0 bg-black/85 backdrop-blur-md z-[9999] transition-opacity duration-300 ${ 
+        className={`fixed inset-0 bg-black/85 backdrop-blur-md z-[9999] transition-opacity duration-300 ${
           isAccepted ? 'opacity-0' : 'opacity-100'
         }`}
         style={{ backdropFilter: 'blur(12px)' }}
       />
       
       {/* Modal Container */}
-      <div className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 transition-all duration-300 ${ 
+      <div className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 transition-all duration-300 ${
         isAccepted ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}> 
         <div className="bg-gradient-to-br from-red-900/98 to-red-800/98 backdrop-blur-md border-2 border-red-400 rounded-xl max-w-lg w-full mx-auto shadow-2xl ring-1 ring-red-500/50">
