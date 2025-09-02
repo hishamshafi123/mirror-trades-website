@@ -2,7 +2,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getDictionary } from '@/lib/client-dictionaries'
 import AnimatedNumber from '@/components/AnimatedNumber'
 import AnimatedSection from '@/components/AnimatedSection'
 import portfolioData from '@/content/portfolios.json'

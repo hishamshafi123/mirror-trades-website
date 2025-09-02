@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Dictionary } from '@/lib/client-dictionaries'
 import { usePageLoadAnimation } from '@/hooks/useScrollAnimation'
 
