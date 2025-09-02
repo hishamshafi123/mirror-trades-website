@@ -108,8 +108,8 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
         }`}
       />
       
-      {/* Modal Container - Centered but floating */}
-      <div className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 transition-all duration-300 ${
+      {/* Modal Container - Positioned near top for hero section visibility */}
+      <div className={`fixed inset-0 z-[10000] flex items-start justify-center pt-20 md:pt-32 lg:pt-40 p-4 transition-all duration-300 ${
         isAccepted ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}> 
         <div className="bg-black/95 backdrop-blur-md border border-primary-gold rounded-xl max-w-md w-full mx-auto shadow-2xl ring-1 ring-primary-gold/30">
@@ -165,7 +165,7 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
           <div className="p-6 pt-0">
             <button
               onClick={handleAccept}
-              className="w-full bg-gradient-to-r from-primary-gold to-secondary-gold hover:from-secondary-gold hover:to-primary-gold active:from-accent-gold active:to-secondary-gold text-background-dark font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary-gold/50 border border-primary-gold/30 hover:border-primary-gold"
+              className="w-full bg-transparent border-2 border-primary-gold hover:bg-primary-gold hover:border-secondary-gold text-primary-gold hover:text-background-dark font-bold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary-gold/50"
             >
               <span className="text-lg">{riskWarning.acceptButton}</span>
             </button>
