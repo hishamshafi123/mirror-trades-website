@@ -11,6 +11,7 @@ interface RiskWarningModalProps {
 export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [isAccepted, setIsAccepted] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   // Fallback content in case dictionary is not properly loaded
   const fallbackWarning = {
@@ -25,34 +26,53 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
   const riskWarning = dictionary?.riskWarning || fallbackWarning
 
   useEffect(() => {
+    // Mark as client-side to prevent hydration issues
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    // Only run on client-side to avoid hydration issues
+    if (!isClient) return
+
     // Only proceed if we have the risk warning content
     if (!dictionary || !dictionary.riskWarning) {
       console.warn('Risk warning dictionary not loaded, using fallback')
     }
     
-    // Check if user has already acknowledged the warning
-    const hasAcknowledged = localStorage.getItem('riskWarningAcknowledged')
-    const acknowledgedDate = localStorage.getItem('riskWarningDate')
-    
-    // Show warning if not acknowledged or if it's been more than 30 days (regulatory compliance)
-    if (!hasAcknowledged || !acknowledgedDate) {
-      setIsVisible(true)
-    } else {
-      const daysSinceAcknowledgment = (Date.now() - parseInt(acknowledgedDate)) / (1000 * 60 * 60 * 24)
-      if (daysSinceAcknowledgment > 30) {
+    try {
+      // Check if user has already acknowledged the warning
+      const hasAcknowledged = localStorage.getItem('riskWarningAcknowledged')
+      const acknowledgedDate = localStorage.getItem('riskWarningDate')
+      
+      // Show warning if not acknowledged or if it's been more than 30 days (regulatory compliance)
+      if (!hasAcknowledged || !acknowledgedDate) {
         setIsVisible(true)
-        // Clear old acknowledgment for re-confirmation
-        localStorage.removeItem('riskWarningAcknowledged')
-        localStorage.removeItem('riskWarningDate')
+      } else {
+        const daysSinceAcknowledgment = (Date.now() - parseInt(acknowledgedDate)) / (1000 * 60 * 60 * 24)
+        if (daysSinceAcknowledgment > 30) {
+          setIsVisible(true)
+          // Clear old acknowledgment for re-confirmation
+          localStorage.removeItem('riskWarningAcknowledged')
+          localStorage.removeItem('riskWarningDate')
+        }
       }
+    } catch (error) {
+      console.error('Error accessing localStorage:', error)
+      // Show modal by default if localStorage fails
+      setIsVisible(true)
     }
-  }, [dictionary])
+  }, [dictionary, isClient])
 
   const handleAccept = () => {
     setIsAccepted(true)
-    // Store acknowledgment with timestamp for compliance tracking
-    localStorage.setItem('riskWarningAcknowledged', 'true')
-    localStorage.setItem('riskWarningDate', Date.now().toString())
+    
+    try {
+      // Store acknowledgment with timestamp for compliance tracking
+      localStorage.setItem('riskWarningAcknowledged', 'true')
+      localStorage.setItem('riskWarningDate', Date.now().toString())
+    } catch (error) {
+      console.error('Error storing localStorage:', error)
+    }
     
     // Smooth fade out animation
     setTimeout(() => {
@@ -61,11 +81,21 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
   }
 
   const handleLinkClick = (url: string) => {
-    // Open compliance pages in new tab
-    window.open(url, '_blank', 'noopener,noreferrer')
+    try {
+      // For now, these are placeholder links - show alert instead of opening broken links
+      if (url.startsWith('#')) {
+        alert('This document will be available soon. Please contact us for more information.')
+        return
+      }
+      // Open real compliance pages in new tab
+      window.open(url, '_blank', 'noopener,noreferrer')
+    } catch (error) {
+      console.error('Error opening link:', error)
+    }
   }
 
-  if (!isVisible) return null
+  // Don't render on server-side to prevent hydration issues
+  if (!isClient || !isVisible) return null
 
   return (
     <>
