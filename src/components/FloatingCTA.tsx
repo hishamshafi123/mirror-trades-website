@@ -46,7 +46,9 @@ export default function FloatingCTA({ dict }: FloatingCTAProps) {
       }`}
     >
         <a
-          href="#onboarding"
+          href="https://calendly.com/costadaino/15min?fbclid=PAVERFWAMmWURleHRuA2FlbQIxMAABpwoCkCntYXgV4wbQ3JluQcJFhFCMAAIAuqpe0aOdLUQHoVd2Ot0_c6VHufDQ_aem_rUYMIZIOloG7laACXAAxDg&month=2025-09"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative inline-flex items-center justify-center bg-primary-gold text-background-dark font-bold py-3 px-5 md:py-4 md:px-6 lg:py-4 lg:px-8 rounded-full hover:bg-secondary-gold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary-gold/25 hover:scale-105 text-sm md:text-base lg:text-lg"
           aria-label="Contact us"
         >

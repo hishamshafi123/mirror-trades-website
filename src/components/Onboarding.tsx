@@ -20,7 +20,9 @@ export default async function Onboarding({ lang }: OnboardingProps) {
           {/* Prominent CTA Button */}
           <div className="mb-12">
             <a 
-              href="#contact" 
+              href="https://calendly.com/costadaino/15min?fbclid=PAVERFWAMmWURleHRuA2FlbQIxMAABpwoCkCntYXgV4wbQ3JluQcJFhFCMAAIAuqpe0aOdLUQHoVd2Ot0_c6VHufDQ_aem_rUYMIZIOloG7laACXAAxDg&month=2025-09"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-gradient-to-r from-primary-gold to-secondary-gold text-background-dark font-bold text-xl py-5 px-12 rounded-2xl hover:from-secondary-gold hover:to-primary-gold transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-primary-gold/30 group"
             >
               <span className="mr-3">{dict.onboarding.cta_button}</span>
@@ -125,7 +127,9 @@ export default async function Onboarding({ lang }: OnboardingProps) {
             Ready to start your copy trading journey?
           </p>
           <a 
-            href="#contact" 
+            href="https://calendly.com/costadaino/15min?fbclid=PAVERFWAMmWURleHRuA2FlbQIxMAABpwoCkCntYXgV4wbQ3JluQcJFhFCMAAIAuqpe0aOdLUQHoVd2Ot0_c6VHufDQ_aem_rUYMIZIOloG7laACXAAxDg&month=2025-09"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center bg-primary-gold text-background-dark font-bold text-lg py-4 px-10 rounded-xl hover:bg-secondary-gold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-primary-gold/25 group"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

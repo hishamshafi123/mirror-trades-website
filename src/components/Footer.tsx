@@ -1,7 +1,26 @@
 'use client'
 
-import { Instagram, Youtube, MessageCircle, Mail, ExternalLink } from 'lucide-react'
+import { Instagram, Youtube, MessageCircle, Mail, Linkedin, Hash, Pencil, ExternalLink } from 'lucide-react'
 import { Dictionary } from '@/lib/client-dictionaries'
+
+// Custom SVG Icons for platforms not available in lucide-react
+const TwitterXIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+)
+
+const MediumIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+  </svg>
+)
+
+const TelegramIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+  </svg>
+)
 
 interface FooterProps {
   dictionary: Dictionary | null
@@ -25,7 +44,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
       contact: {
         title: "Contact & Social",
         description: "Contact us on Telegram or via email:",
-        email: "info@mirrortrades.gr",
+        email: "mirrortradesgreece@gmail.com",
         followUs: "Follow us:"
       }
     }
@@ -160,13 +179,13 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                 </a>
                 
                 <a 
-                  href="https://t.me/mirrortradesgroup"
+                  href="https://t.me/mirrortradesgreece/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-primary-gold transition-colors font-medium flex items-center gap-3 group"
                 >
                   <div className="p-2 bg-primary-gold/10 rounded-lg group-hover:bg-primary-gold/20 transition-colors">
-                    <MessageCircle className="h-4 w-4 text-primary-gold" />
+                    <TelegramIcon className="h-4 w-4 text-primary-gold" />
                   </div>
                   <div>
                     <div className="text-xs text-text-secondary/60 uppercase tracking-wider">Telegram</div>
@@ -196,7 +215,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
               
               <div className="flex flex-wrap gap-3">
                 <a 
-                  href="https://instagram.com/mirrortrades" 
+                  href="https://www.instagram.com/mirrortrades.gr/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-primary-gold transition-all duration-300 p-3 bg-surface-light/10 rounded-xl hover:bg-primary-gold/10 hover:scale-110 group"
@@ -205,25 +224,41 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                   <Instagram className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
-                  href="https://t.me/mirrortradesgroup" 
+                  href="https://t.me/mirrortradesgreece/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-primary-gold transition-all duration-300 p-3 bg-surface-light/10 rounded-xl hover:bg-primary-gold/10 hover:scale-110 group"
                   aria-label="Telegram"
                 >
-                  <MessageCircle className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                  <TelegramIcon className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
-                  href="https://linkedin.com/company/mirrortrades" 
+                  href="https://www.linkedin.com/company/mirrortrades/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-primary-gold transition-all duration-300 p-3 bg-surface-light/10 rounded-xl hover:bg-primary-gold/10 hover:scale-110 group"
                   aria-label="LinkedIn"
                 >
-                  <ExternalLink className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                  <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
-                  href="https://youtube.com/mirrortrades" 
+                  href="mailto:mirrortradesgreece@gmail.com" 
+                  className="text-text-secondary hover:text-primary-gold transition-all duration-300 p-3 bg-surface-light/10 rounded-xl hover:bg-primary-gold/10 hover:scale-110 group"
+                  aria-label="Email"
+                >
+                  <Mail className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                </a>
+                <a 
+                  href="https://x.com/mirrortrades_gr?s=21&t=ycNXGYjByMokOepNrpjj8g" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-primary-gold transition-all duration-300 p-3 bg-surface-light/10 rounded-xl hover:bg-primary-gold/10 hover:scale-110 group"
+                  aria-label="X (Twitter)"
+                >
+                  <TwitterXIcon className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                </a>
+                <a 
+                  href="https://www.youtube.com/@MirrorTradesOfficial" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-primary-gold transition-all duration-300 p-3 bg-surface-light/10 rounded-xl hover:bg-primary-gold/10 hover:scale-110 group"

@@ -41,7 +41,9 @@ export default function Hero({ dict }: HeroProps) {
           
           {/* Primary CTA Button */}
           <a 
-            href="#contact" 
+            href="https://calendly.com/costadaino/15min?fbclid=PAVERFWAMmWURleHRuA2FlbQIxMAABpwoCkCntYXgV4wbQ3JluQcJFhFCMAAIAuqpe0aOdLUQHoVd2Ot0_c6VHufDQ_aem_rUYMIZIOloG7laACXAAxDg&month=2025-09" 
+            target="_blank"
+            rel="noopener noreferrer"
             className={`inline-flex items-center justify-center bg-primary-gold text-background-dark font-bold text-lg py-4 px-10 rounded-xl hover:bg-secondary-gold hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-primary-gold/25 group ${
               ctaLoaded 
                 ? 'opacity-100 translate-y-0 scale-100' 

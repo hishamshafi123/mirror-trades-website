@@ -12,12 +12,14 @@ import PageWrapper from '@/components/PageWrapper'
 import AnimatedSection from '@/components/AnimatedSection'
 import RiskWarningModal from '@/components/RiskWarningModal'
 import FloatingCTA from '@/components/FloatingCTA'
+import BackgroundVideo from '@/components/BackgroundVideo'
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = await getDictionary(lang)
   return (
     <>
+      <BackgroundVideo src="/background-video.mp4" />
       <PageWrapper>
         <main>
           <RiskWarningModal dictionary={dict} />
