@@ -25,18 +25,6 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  if (isMobile) {
-    return (
-      <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${fallbackImage})` }}
-        />
-        <div className="absolute inset-0 bg-black/60"></div>
-      </div>
-    )
-  }
-
   return (
     <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden">
       {!videoLoaded && (
@@ -46,7 +34,7 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
         />
       )}
       <video
-        autoPlay
+        autoPlay={!isMobile}
         muted
         loop
         playsInline
@@ -59,7 +47,7 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
         <source src={src} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className={`absolute inset-0 ${isMobile ? 'bg-black/60' : 'bg-black/50'}`}></div>
     </div>
   )
 }
