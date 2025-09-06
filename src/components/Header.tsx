@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getDictionary } from '@/lib/dictionaries'
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -9,8 +10,14 @@ export default async function Header({ lang }: { lang: string }) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Link href={`/${lang}`} className="text-2xl font-bold text-primary-gold">
-              Mirror Trades
+            <Link href={`/${lang}`} className="flex items-center">
+              <Image
+                src="/your-logo.png"
+                alt="Mirror Trades"
+                width={300}
+                height={80}
+                className="h-20 w-auto"
+              />
             </Link>
           </div>
           <nav className="hidden md:flex md:space-x-8">
