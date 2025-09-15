@@ -94,10 +94,10 @@ export default function Portfolios({ lang }: { lang: string }) {
                   <div className="bg-surface-dark rounded-xl p-6 hover:bg-surface-dark/80 transition-colors border border-primary-gold/10 group">
                     <h3 className="text-xl font-bold text-primary-gold mb-4 group-hover:text-secondary-gold transition-colors">{portfolio.name}</h3>
                     
-                    <div className="grid grid-cols-3 gap-4 mb-4">
+                    <div className="grid grid-cols-2 gap-6 mb-4">
                       <div>
-                        <p className="text-sm text-text-secondary">Total Gain</p>
-                        <p className="text-xl font-bold text-success-green">
+                        <p className="text-sm text-text-secondary mb-1">Total Gain</p>
+                        <p className="text-2xl font-bold text-success-green">
                           {portfolio.gain.includes('+') ? '+' : ''}
                           <AnimatedNumber 
                             value={extractNumber(portfolio.gain)} 
@@ -107,8 +107,8 @@ export default function Portfolios({ lang }: { lang: string }) {
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm text-text-secondary">Max Drawdown</p>
-                        <p className="text-xl font-bold text-warning-red">
+                        <p className="text-sm text-text-secondary mb-1">Max Drawdown</p>
+                        <p className="text-2xl font-bold text-warning-red">
                           <AnimatedNumber 
                             value={extractNumber(portfolio.drawdown)} 
                             suffix="%" 
@@ -116,37 +116,26 @@ export default function Portfolios({ lang }: { lang: string }) {
                           />
                         </p>
                       </div>
-                      <div>
-                        <p className="text-sm text-text-secondary">Monthly Avg</p>
-                        <p className="text-xl font-bold text-text-primary">
-                          {portfolio.monthly.includes('+') ? '+' : ''}
-                          <AnimatedNumber 
-                            value={extractNumber(portfolio.monthly)} 
-                            suffix="%" 
-                            delay={index * 200 + 700}
-                          />
-                        </p>
-                      </div>
                     </div>
                   
-                  <div className="flex justify-between items-center pt-4 border-t border-primary-gold/20">
-                    <p className="text-sm text-text-secondary">Trading since {portfolio.since}</p>
+                  {/* Live stats link hidden for now */}
+                  {/* <div className="flex justify-end items-center pt-4 border-t border-primary-gold/20">
                     <a 
                       href="https://www.myfxbook.com/members/mirrortrades" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-sm text-primary-gold hover:text-secondary-gold transition-colors"
+                      className="text-sm text-primary-gold hover:text-secondary-gold transition-colors font-medium"
                     >
                       View Live Stats →
                     </a>
-                  </div>
+                  </div> */}
                   </div>
                 </AnimatedSection>
               ))}
             </div>
 
-            {/* Note about live data */}
-            <div className="mt-8 p-4 bg-primary-gold/5 rounded-lg border border-primary-gold/20">
+            {/* Note about live data - hidden for now */}
+            {/* <div className="mt-8 p-4 bg-primary-gold/5 rounded-lg border border-primary-gold/20">
               <p className="text-sm text-text-secondary">
                 📊 Live performance data available at: 
                 <a 
@@ -158,7 +147,7 @@ export default function Portfolios({ lang }: { lang: string }) {
                   myfxbook.com/members/mirrortrades
                 </a>
               </p>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column - Advantages */}

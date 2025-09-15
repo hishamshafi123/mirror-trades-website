@@ -5,9 +5,10 @@ import { usePageLoadAnimation } from '@/hooks/useScrollAnimation'
 
 interface HeroProps {
   dict: Dictionary
+  lang: string
 }
 
-export default function Hero({ dict }: HeroProps) {
+export default function Hero({ dict, lang }: HeroProps) {
   const titleLoaded = usePageLoadAnimation(600)
   const subtitleLoaded = usePageLoadAnimation(900)
   const ctaLoaded = usePageLoadAnimation(1200)
@@ -24,7 +25,11 @@ export default function Hero({ dict }: HeroProps) {
 
         {/* Hero Content */}
         <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold text-text-primary leading-tight mb-6 tracking-tight transition-all duration-1000 ease-out ${
+          <h1 className={`${
+            lang === 'el' 
+              ? 'text-4xl md:text-6xl lg:text-7xl' 
+              : 'text-5xl md:text-7xl lg:text-8xl'
+          } font-bold text-text-primary leading-tight mb-6 tracking-tight transition-all duration-1000 ease-out ${
             titleLoaded 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-12'

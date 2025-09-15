@@ -6,9 +6,10 @@ import { Dictionary } from '@/lib/client-dictionaries'
 
 interface RiskWarningModalProps {
   dictionary: Dictionary | null
+  lang?: string
 }
 
-export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) {
+export default function RiskWarningModal({ dictionary, lang = 'el' }: RiskWarningModalProps) {
   const [showModal, setShowModal] = useState(false)
   const [isAccepted, setIsAccepted] = useState(false)
 
@@ -84,7 +85,17 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
 
   const handleLinkClick = (url: string) => {
     try {
-      // For now, these are placeholder links - show alert instead of opening broken links
+      // Handle terms and conditions link
+      if (url === '#terms-conditions') {
+        window.open(`/${lang}/terms`, '_blank', 'noopener,noreferrer')
+        return
+      }
+      // Handle risk disclosure link
+      if (url === '#risk-disclosure') {
+        window.open(`/${lang}/risk-disclosure`, '_blank', 'noopener,noreferrer')
+        return
+      }
+      // For other placeholder links - show alert instead of opening broken links
       if (url.startsWith('#')) {
         alert('This document will be available soon. Please contact us for more information.')
         return
@@ -173,7 +184,7 @@ export default function RiskWarningModal({ dictionary }: RiskWarningModalProps) 
             {/* Additional Compliance Text */}
             <div className="bg-primary-gold/5 border border-primary-gold/20 rounded-lg p-3 mt-4">
               <p className="text-text-secondary text-xs text-center leading-relaxed">
-                By clicking &quot;<strong>{riskWarning.acceptButton}</strong>&quot;, you acknowledge that you have read and understood this risk warning and accept full responsibility for your investment decisions. This warning will be shown periodically as required by regulation.
+                Κάνοντας κλικ στο &quot;<strong>{riskWarning.acceptButton}</strong>&quot;,αναγνωρίζετε ότι έχετε διαβάσει και κατανοήσει αυτήν την προειδοποίηση κινδύνου και αποδέχεστε την πλήρη ευθύνη για τις επενδυτικές σας αποφάσεις. Αυτή η προειδοποίηση θα εμφανίζεται περιοδικά, όπως απαιτείται από τον κανονισμό..
               </p>
             </div>
           </div>

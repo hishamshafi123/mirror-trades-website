@@ -5,7 +5,7 @@ const locales = ['en', 'el']
 // Get the preferred locale, similar to above or using a library
 function getLocale() {
   // For now, we'll just use the default
-  return 'en'
+  return 'el'
 }
 
 export function middleware(request: NextRequest) {

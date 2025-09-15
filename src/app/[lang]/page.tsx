@@ -22,10 +22,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <BackgroundVideo src="/background-video.mp4" />
       <PageWrapper>
         <main>
-          <RiskWarningModal dictionary={dict} />
+          <RiskWarningModal dictionary={dict} lang={lang} />
           
           <AnimatedSection animation="fadeIn" delay={200}>
-            <Hero dict={dict} />
+            <Hero dict={dict} lang={lang} />
           </AnimatedSection>
           
           <AnimatedSection animation="fadeUp" delay={100}>

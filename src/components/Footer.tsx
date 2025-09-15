@@ -77,20 +77,23 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                 Mirror Trades
               </h3>
               <p className="text-text-secondary leading-relaxed mb-6">
-                Professional copy trading platform helping traders achieve consistent returns through proven strategies and transparent performance.
+                {lang === 'el' 
+                  ? 'Επαγγελματική πλατφόρμα copy trading που βοηθά τους traders να επιτύχουν σταθερές αποδόσεις μέσω αποδεδειγμένων στρατηγικών και διαφανούς απόδοσης.'
+                  : 'Professional copy trading platform helping traders achieve consistent returns through proven strategies and transparent performance.'
+                }
               </p>
               <div className="space-y-2 text-sm text-text-secondary">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-success-green rounded-full"></div>
-                  <span>Live Performance Tracking</span>
+                  <span>{lang === 'el' ? 'Παρακολούθηση Ζωντανής Απόδοσης' : 'Live Performance Tracking'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary-gold rounded-full"></div>
-                  <span>Professional Risk Management</span>
+                  <span>{lang === 'el' ? 'Επαγγελματική Διαχείριση Κινδύνου' : 'Professional Risk Management'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-secondary-gold rounded-full"></div>
-                  <span>24/7 Support</span>
+                  <span>{lang === 'el' ? 'Υποστήριξη 24/7' : '24/7 Support'}</span>
                 </div>
               </div>
             </div>
@@ -98,7 +101,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
             {/* Quick Links Section */}
             <div className="lg:col-span-1">
               <h3 className="text-lg font-semibold text-primary-gold mb-6">
-                Quick Links
+                {lang === 'el' ? 'Γρήγοροι Σύνδεσμοι' : 'Quick Links'}
               </h3>
               <ul className="space-y-3">
                 <li>
@@ -131,7 +134,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                     <svg className="w-3 h-3 text-primary-gold/50 group-hover:text-primary-gold transition-colors" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
-                    Our Process
+{lang === 'el' ? 'Η Διαδικασία μας' : 'Our Process'}
                   </button>
                 </li>
                 <li>
@@ -153,7 +156,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                     <svg className="w-3 h-3 text-primary-gold/50 group-hover:text-primary-gold transition-colors" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
-                    Get Started
+{lang === 'el' ? 'Ξεκινήστε' : 'Get Started'}
                   </button>
                 </li>
               </ul>
@@ -162,7 +165,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
             {/* Contact Section */}
             <div className="lg:col-span-1">
               <h3 className="text-lg font-semibold text-primary-gold mb-6">
-                Contact Info
+                {lang === 'el' ? 'Στοιχεία Επικοινωνίας' : 'Contact Info'}
               </h3>
               <div className="space-y-4">
                 <a 
@@ -173,7 +176,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                     <Mail className="h-4 w-4 text-primary-gold" />
                   </div>
                   <div>
-                    <div className="text-xs text-text-secondary/60 uppercase tracking-wider">Email</div>
+                    <div className="text-xs text-text-secondary/60 uppercase tracking-wider">{lang === 'el' ? 'Email' : 'Email'}</div>
                     <div className="text-sm">{footerContent.sections.contact.email}</div>
                   </div>
                 </a>
@@ -189,7 +192,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                   </div>
                   <div>
                     <div className="text-xs text-text-secondary/60 uppercase tracking-wider">Telegram</div>
-                    <div className="text-sm">Join our group</div>
+                    <div className="text-sm">{lang === 'el' ? 'Γίνετε μέλος της ομάδας μας' : 'Join our group'}</div>
                   </div>
                 </a>
               </div>
@@ -198,7 +201,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
             {/* Social & Performance Section */}
             <div className="lg:col-span-1">
               <h3 className="text-lg font-semibold text-primary-gold mb-6">
-                Follow & Track
+                {lang === 'el' ? 'Ακολουθήστε & Παρακολουθήστε' : 'Follow & Track'}
               </h3>
               
               <div className="space-y-4 mb-6">
@@ -209,7 +212,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                   className="inline-flex items-center gap-2 text-success-green hover:text-success-green/80 transition-colors font-medium text-sm"
                 >
                   <div className="w-2 h-2 bg-success-green rounded-full animate-pulse"></div>
-                  Live Performance
+{lang === 'el' ? 'Ζωντανή Απόδοση' : 'Live Performance'}
                 </a>
               </div>
               
@@ -285,7 +288,7 @@ export default function Footer({ dictionary, lang }: FooterProps) {
             
             {/* Language Switcher */}
             <div className="flex items-center gap-2">
-              <span className="text-text-secondary text-sm">Language:</span>
+              <span className="text-text-secondary text-sm">{lang === 'el' ? 'Γλώσσα:' : 'Language:'}</span>
               <div className="flex gap-1">
                 <button 
                   onClick={() => window.location.href = `/en${window.location.hash}`}
