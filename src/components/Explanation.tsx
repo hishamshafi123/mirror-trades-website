@@ -31,7 +31,7 @@ export default async function Explanation({ lang }: { lang: string }) {
               </div>
             </div>
             <h3 className="text-3xl font-bold text-white mb-6 bg-gradient-to-r from-primary-gold to-white bg-clip-text text-transparent">
-              What is Copy Trading?
+              {lang === 'el' ? 'Τι είναι το Copy Trading;' : 'What is Copy Trading?'}
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed">
               {dict.explanation.what_is_copy_trading}

@@ -121,6 +121,10 @@
     "contact_prompt": "Didn't find your question? Contact us via chat – we're happy to help.",
     "questions": [
       {
+        "question": "What is Copy Trading?",
+        "answer": "Copy Trading is an investment technique that allows investors to automatically replicate the trades of experienced traders in real time. When a professional trader opens, closes, or modifies a position, the same actions are automatically executed in your account. This way, you can benefit from the experience and strategy of skilled traders without needing trading knowledge yourself or monitoring the markets daily."
+      },
+      {
         "question": "Do I need to pay anything for Mirror Trades?",
         "answer": "No, using Mirror Trades is 100% free for you. There are no hidden fees or subscriptions for our service. The only cost is the capital you deposit with your broker to fund your trading account, and any charges from the broker itself (e.g., spread, transaction commissions), which apply as they normally would to any account."
       },
