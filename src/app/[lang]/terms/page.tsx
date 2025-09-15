@@ -51,7 +51,7 @@ export default function TermsPage() {
               /* Greek Content */
               <div className="space-y-8 text-text-primary">
                 <p className="text-lg leading-relaxed text-text-secondary">
-                  Καλώς ήρθατε στη Mirror Trades! Οι παρόντες "Όροι Χρήσης" καθορίζουν τους νομικούς όρους και προϋποθέσεις υπό τις οποίες μπορείτε να χρησιμοποιείτε την ιστοσελίδα μας (mirrortrades.gr) και τις υπηρεσίες που προσφέρει η Mirror Trades. Παρακαλούμε διαβάστε προσεκτικά τους όρους αυτούς. Με την πρόσβαση ή χρήση του ιστότοπου και των υπηρεσιών μας, συμφωνείτε ότι δεσμεύεστε από τους παρόντες Όρους Χρήσης. Εάν δεν συμφωνείτε, παρακαλούμε μην χρησιμοποιείτε τον ιστότοπο ή τις υπηρεσίες μας.
+                  Καλώς ήρθατε στη Mirror Trades! Οι παρόντες &quot;Όροι Χρήσης&quot; καθορίζουν τους νομικούς όρους και προϋποθέσεις υπό τις οποίες μπορείτε να χρησιμοποιείτε την ιστοσελίδα μας (mirrortrades.gr) και τις υπηρεσίες που προσφέρει η Mirror Trades. Παρακαλούμε διαβάστε προσεκτικά τους όρους αυτούς. Με την πρόσβαση ή χρήση του ιστότοπου και των υπηρεσιών μας, συμφωνείτε ότι δεσμεύεστε από τους παρόντες Όρους Χρήσης. Εάν δεν συμφωνείτε, παρακαλούμε μην χρησιμοποιείτε τον ιστότοπο ή τις υπηρεσίες μας.
                 </p>
 
                 <section>
@@ -109,7 +109,7 @@ export default function TermsPage() {
                     <li>Απώλεια δεδομένων ή πληροφοριών</li>
                   </ul>
                   <p className="text-text-secondary leading-relaxed mt-4">
-                    Η Mirror Trades παρέχει τις υπηρεσίες της "ως έχουν" ("as is"), χωρίς καμία εγγύηση ως προς την εμπορευσιμότητα ή καταλληλότητα για συγκεκριμένο σκοπό.
+                    Η Mirror Trades παρέχει τις υπηρεσίες της &quot;ως έχουν&quot; (&quot;as is&quot;), χωρίς καμία εγγύηση ως προς την εμπορευσιμότητα ή καταλληλότητα για συγκεκριμένο σκοπό.
                   </p>
                 </section>
 
@@ -189,7 +189,7 @@ export default function TermsPage() {
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-text-secondary ml-4">
                     <li>Violate any applicable laws or regulations through your use of the website</li>
-                    <li>Attempt to gain unauthorized access to our systems or other users' accounts</li>
+                    <li>Attempt to gain unauthorized access to our systems or other users&apos; accounts</li>
                     <li>Use Mirror Trades content (text, images, logos) for commercial purposes without permission</li>
                     <li>Distribute viruses, malware, or any other harmful content</li>
                     <li>Harass or threaten other users or our staff</li>
@@ -211,13 +211,13 @@ export default function TermsPage() {
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-text-secondary ml-4">
                     <li>The trading account you open is a contractual relationship between you and the broker. Mirror Trades is not a party to the agreement between you and the brokerage</li>
-                    <li>Any trades executed in your account via copy trading are carried out by the broker under that broker's own Terms and Conditions. Please ensure you read and understand the terms of service of the respective broker and their risk disclosures. Mirror Trades is not liable for any acts or omissions of the broker</li>
+                    <li>Any trades executed in your account via copy trading are carried out by the broker under that broker&apos;s own Terms and Conditions. Please ensure you read and understand the terms of service of the respective broker and their risk disclosures. Mirror Trades is not liable for any acts or omissions of the broker</li>
                     <li>Mirror Trades does not control the trading platforms provided by the brokers. We endeavor to work with reputable, regulated brokers, but we cannot guarantee the continuous operation, performance, or security of their platforms</li>
                   </ul>
                 </section>
 
                 <section>
-                  <h2 className="text-2xl font-bold text-primary-gold mb-4">5. Limitation of Mirror Trades' Liability</h2>
+                  <h2 className="text-2xl font-bold text-primary-gold mb-4">5. Limitation of Mirror Trades&apos; Liability</h2>
                   <p className="text-text-secondary leading-relaxed mb-4">
                     To the fullest extent permitted by law, Mirror Trades will not be liable for any direct or indirect damages, loss of profits, loss of revenue, or any form of loss arising from:
                   </p>
@@ -230,7 +230,7 @@ export default function TermsPage() {
                     <li>Loss of data or information</li>
                   </ul>
                   <p className="text-text-secondary leading-relaxed mt-4">
-                    Mirror Trades provides its services on an "as is" basis without any warranties of merchantability or fitness for a particular purpose.
+                    Mirror Trades provides its services on an &quot;as is&quot; basis without any warranties of merchantability or fitness for a particular purpose.
                   </p>
                 </section>
 

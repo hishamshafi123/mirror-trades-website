@@ -254,7 +254,7 @@ export default function RiskDisclosurePage() {
                     <div>
                       <h3 className="text-xl font-semibold text-primary-gold mb-2">Dependence on Third Parties:</h3>
                       <p className="text-text-secondary leading-relaxed">
-                        In copy trading, investment decisions are made by the signal providers/traders you choose to copy. You have no direct control over trades and rely on others' strategy, experience, and judgment.
+                        In copy trading, investment decisions are made by the signal providers/traders you choose to copy. You have no direct control over trades and rely on others&apos; strategy, experience, and judgment.
                       </p>
                     </div>
                     <div>
@@ -366,7 +366,7 @@ export default function RiskDisclosurePage() {
                   <h2 className="text-2xl font-bold text-primary-gold mb-4">7. Risk Management - Recommendations</h2>
                   <ul className="list-disc list-inside space-y-2 text-text-secondary ml-4">
                     <li><strong className="text-primary-gold">Education:</strong> Fully understand the products you are investing in before starting.</li>
-                    <li><strong className="text-primary-gold">Diversification:</strong> Don't copy just one trader. Distribute your capital among multiple traders with different strategies.</li>
+                    <li><strong className="text-primary-gold">Diversification:</strong> Don&apos;t copy just one trader. Distribute your capital among multiple traders with different strategies.</li>
                     <li><strong className="text-primary-gold">Stop Loss:</strong> Set loss limits for each trader you copy.</li>
                     <li><strong className="text-primary-gold">Risk Capital:</strong> Use only capital you can afford to lose without affecting your financial situation.</li>
                     <li><strong className="text-primary-gold">Monitoring:</strong> Regularly monitor performance and adjust your strategy accordingly.</li>
