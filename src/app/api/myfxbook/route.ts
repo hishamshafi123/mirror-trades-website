@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 // TypeScript interfaces for Myfxbook API responses
 interface MyfxbookLoginResponse {
@@ -161,7 +161,7 @@ function formatPercentage(value: number | undefined): string {
 /**
  * Main API handler
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Step 1: Login and get session
     const session = await loginToMyfxbook()
@@ -173,7 +173,7 @@ export async function GET(request: NextRequest) {
     const portfolios: PortfolioData[] = await Promise.all(
       accounts.map(async (account) => {
         let gain = account.gain
-        let drawdown = account.drawdown
+        const drawdown = account.drawdown
 
         // If gain is not available, try to fetch it separately
         if (gain === undefined) {
@@ -220,7 +220,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Handle CORS for development
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {

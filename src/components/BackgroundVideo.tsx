@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react'
 
 interface BackgroundVideoProps {
   src: string
-  poster?: string
   fallbackImage?: string
 }
 
-export default function BackgroundVideo({ src, poster, fallbackImage = '/finance-bg.jpg' }: BackgroundVideoProps) {
-  const [videoLoaded, setVideoLoaded] = useState(false)
+export default function BackgroundVideo({ src, fallbackImage = '/finance-bg.jpg' }: BackgroundVideoProps) {
   const [isMobile, setIsMobile] = useState(false)
   const [videoError, setVideoError] = useState(false)
 
@@ -58,7 +56,6 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
           preload="metadata"
           onLoadedData={() => {
             console.log('Video loaded successfully')
-            setVideoLoaded(true)
           }}
           onCanPlay={() => {
             console.log('Video can play')
@@ -80,7 +77,6 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
             console.warn('Video failed to load, using fallback image:', errorInfo)
 
             // Set fallback behavior
-            setVideoLoaded(false)
             setVideoError(true)
           }}
           onLoadStart={() => console.log('Video loading started')}
