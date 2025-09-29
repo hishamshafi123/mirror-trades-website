@@ -23,8 +23,9 @@ export default async function Header({ lang }: { lang: string }) {
           <nav className="hidden md:flex md:space-x-8">
             <Link href={`/${lang}#about`} className="text-text-secondary hover:text-primary-gold transition-colors">{dict.navigation.about}</Link>
             <Link href={`/${lang}#portfolios`} className="text-text-secondary hover:text-primary-gold transition-colors">{dict.navigation.portfolios}</Link>
+            <Link href={`/${lang}#team`} className="text-text-secondary hover:text-primary-gold transition-colors">{dict.navigation.team}</Link>
             <Link href={`/${lang}#testimonials`} className="text-text-secondary hover:text-primary-gold transition-colors">{dict.navigation.testimonials}</Link>
-            <Link href={`/${lang}#contact`} className="text-text-secondary hover:text-primary-gold transition-colors">{dict.navigation.contact}</Link>
+            <a href="mailto:info@mirrortrades.gr" className="text-text-secondary hover:text-primary-gold transition-colors">{dict.navigation.contact}</a>
           </nav>
           <div className="flex items-center">
             <LanguageSwitcher />

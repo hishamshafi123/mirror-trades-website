@@ -2,6 +2,7 @@ import { getDictionary } from '@/lib/dictionaries'
 import Hero from '@/components/Hero'
 import Explanation from '@/components/Explanation'
 import Portfolios from '@/components/Portfolios'
+import Team from '@/components/Team'
 import Testimonials from '@/components/Testimonials'
 import Trust from '@/components/Trust'
 import Onboarding from '@/components/Onboarding'
@@ -50,6 +51,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           
           <AnimatedSection animation="fadeUp" delay={150}>
             <Faq dictionary={dict} />
+          </AnimatedSection>
+          
+          <AnimatedSection animation="fadeUp" delay={100}>
+            <Team lang={lang} />
           </AnimatedSection>
           
           <AnimatedSection animation="fadeUp" delay={100}>

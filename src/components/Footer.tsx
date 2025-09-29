@@ -128,6 +128,17 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                 </li>
                 <li>
                   <button 
+                    onClick={() => scrollToSection('team')}
+                    className="text-text-secondary hover:text-primary-gold transition-colors text-left flex items-center gap-2 group"
+                  >
+                    <svg className="w-3 h-3 text-primary-gold/50 group-hover:text-primary-gold transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {lang === 'el' ? 'Ομάδα' : 'Team'}
+                  </button>
+                </li>
+                <li>
+                  <button 
                     onClick={() => scrollToSection('explanation')}
                     className="text-text-secondary hover:text-primary-gold transition-colors text-left flex items-center gap-2 group"
                   >
@@ -158,6 +169,28 @@ export default function Footer({ dictionary, lang }: FooterProps) {
                     </svg>
 {lang === 'el' ? 'Ξεκινήστε' : 'Get Started'}
                   </button>
+                </li>
+                <li>
+                  <a 
+                    href={`/${lang}/terms`}
+                    className="text-text-secondary hover:text-primary-gold transition-colors text-left flex items-center gap-2 group"
+                  >
+                    <svg className="w-3 h-3 text-primary-gold/50 group-hover:text-primary-gold transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {dictionary?.footer?.sections?.legal?.termsOfUse || 'Terms of Use'}
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`/${lang}/risk-disclosure`}
+                    className="text-text-secondary hover:text-primary-gold transition-colors text-left flex items-center gap-2 group"
+                  >
+                    <svg className="w-3 h-3 text-primary-gold/50 group-hover:text-primary-gold transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {dictionary?.footer?.sections?.legal?.riskDisclosure || 'Risk Disclosure'}
+                  </a>
                 </li>
               </ul>
             </div>

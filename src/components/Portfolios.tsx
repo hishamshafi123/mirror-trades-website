@@ -4,11 +4,26 @@
 import { useEffect, useState } from 'react'
 import AnimatedNumber from '@/components/AnimatedNumber'
 import AnimatedSection from '@/components/AnimatedSection'
-import portfolioData from '@/content/portfolios.json'
 import type { Dictionary } from '@/lib/client-dictionaries'
+
+// TypeScript interfaces for portfolio data
+interface PortfolioData {
+  name: string
+  gain: string
+  drawdown: string
+}
+
+interface MyfxbookApiResponse {
+  success: boolean
+  data: PortfolioData[]
+  error?: string
+}
 
 export default function Portfolios({ lang }: { lang: string }) {
   const [dict, setDict] = useState<Dictionary | null>(null)
+  const [portfolios, setPortfolios] = useState<PortfolioData[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     async function loadDictionary() {
@@ -25,6 +40,48 @@ export default function Portfolios({ lang }: { lang: string }) {
     loadDictionary()
   }, [lang])
 
+  // Fetch portfolio data from Myfxbook API
+  useEffect(() => {
+    async function fetchPortfolios() {
+      try {
+        setLoading(true)
+        setError(null)
+
+        const response = await fetch('/api/myfxbook', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result: MyfxbookApiResponse = await response.json()
+
+        if (result.success) {
+          setPortfolios(result.data)
+        } else {
+          throw new Error(result.error || 'Failed to fetch portfolio data')
+        }
+      } catch (err) {
+        console.error('Error fetching portfolios:', err)
+        setError(err instanceof Error ? err.message : 'Failed to load portfolio data')
+
+        // Fallback to mock data if API fails
+        setPortfolios([
+          { name: 'Low Risk Alpha', gain: '+3.08%', drawdown: '12.60%' },
+          { name: 'Gold Queen', gain: '+19.01%', drawdown: '3.87%' }
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchPortfolios()
+  }, [])
+
   if (!dict) {
     return <div>Loading...</div>
   }
@@ -34,6 +91,7 @@ export default function Portfolios({ lang }: { lang: string }) {
     const match = str.match(/[\d.]+/)
     return match ? parseFloat(match[0]) : 0
   }
+
 
   // Advantages data with icons
   const advantages = [
@@ -80,58 +138,84 @@ export default function Portfolios({ lang }: { lang: string }) {
           <div>
             <div className="mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">
-                {dict.portfolios.title}
+                {Array.isArray(dict.portfolios.title) ? (
+                  dict.portfolios.title.map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      {index < dict.portfolios.title.length - 1 && <br />}
+                    </span>
+                  ))
+                ) : (
+                  dict.portfolios.title
+                )}
               </h2>
               <p className="text-lg text-text-secondary leading-relaxed">
                 {dict.portfolios.subtitle}
               </p>
             </div>
             
-            {/* Portfolio Cards */}
+            {/* Portfolio Cards with Live Data */}
             <div className="space-y-6">
-              {portfolioData.map((portfolio, index) => (
-                <AnimatedSection key={portfolio.id} delay={index * 150} animation="slideUp">
-                  <div className="bg-surface-dark rounded-xl p-6 hover:bg-surface-dark/80 transition-colors border border-primary-gold/10 group">
-                    <h3 className="text-xl font-bold text-primary-gold mb-4 group-hover:text-secondary-gold transition-colors">{portfolio.name}</h3>
-                    
-                    <div className="grid grid-cols-2 gap-6 mb-4">
-                      <div>
-                        <p className="text-sm text-text-secondary mb-1">Total Gain</p>
-                        <p className="text-2xl font-bold text-success-green">
-                          {portfolio.gain.includes('+') ? '+' : ''}
-                          <AnimatedNumber 
-                            value={extractNumber(portfolio.gain)} 
-                            suffix="%" 
-                            delay={index * 200 + 300}
-                          />
-                        </p>
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-gold"></div>
+                  <p className="mt-2 text-text-secondary">Loading portfolio data...</p>
+                </div>
+              ) : (
+                portfolios.map((portfolio, index) => (
+                  <AnimatedSection key={`${portfolio.name}-${index}`} delay={index * 150} animation="slideUp">
+                    <div className="bg-surface-dark rounded-xl p-6 hover:bg-surface-dark/80 transition-colors border border-primary-gold/10 group">
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-xl font-bold text-primary-gold group-hover:text-secondary-gold transition-colors">
+                          {portfolio.name}
+                        </h3>
+                        {error && (
+                          <span className="text-xs text-warning-red bg-warning-red/10 px-2 py-1 rounded">
+                            Using cached data
+                          </span>
+                        )}
                       </div>
-                      <div>
-                        <p className="text-sm text-text-secondary mb-1">Max Drawdown</p>
-                        <p className="text-2xl font-bold text-warning-red">
-                          <AnimatedNumber 
-                            value={extractNumber(portfolio.drawdown)} 
-                            suffix="%" 
-                            delay={index * 200 + 500}
-                          />
-                        </p>
+
+                      <div className="grid grid-cols-2 gap-6 mb-6">
+                        <div>
+                          <p className="text-sm text-text-secondary mb-1">Total Gain</p>
+                          <p className="text-2xl font-bold text-success-green">
+                            {portfolio.gain.includes('+') || portfolio.gain.startsWith('-') ? '' : '+'}
+                            <AnimatedNumber
+                              value={extractNumber(portfolio.gain)}
+                              suffix="%"
+                              delay={index * 200 + 300}
+                            />
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-text-secondary mb-1">Max Drawdown</p>
+                          <p className="text-2xl font-bold text-warning-red">
+                            <AnimatedNumber
+                              value={extractNumber(portfolio.drawdown)}
+                              suffix="%"
+                              delay={index * 200 + 500}
+                            />
+                          </p>
+                        </div>
                       </div>
+
                     </div>
-                  
-                  {/* Live stats link hidden for now */}
-                  {/* <div className="flex justify-end items-center pt-4 border-t border-primary-gold/20">
-                    <a 
-                      href="https://www.myfxbook.com/members/mirrortrades" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-sm text-primary-gold hover:text-secondary-gold transition-colors font-medium"
-                    >
-                      View Live Stats →
-                    </a>
-                  </div> */}
-                  </div>
-                </AnimatedSection>
-              ))}
+                  </AnimatedSection>
+                ))
+              )}
+
+              {/* Error message */}
+              {error && !loading && (
+                <div className="mt-4 p-4 bg-warning-red/10 rounded-lg border border-warning-red/20">
+                  <p className="text-sm text-warning-red">
+                    ⚠️ Unable to fetch live data: {error}
+                  </p>
+                  <p className="text-xs text-text-secondary mt-1">
+                    Displaying cached data. Live data will be restored automatically.
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Note about live data - hidden for now */}

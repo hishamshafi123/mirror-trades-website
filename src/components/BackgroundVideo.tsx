@@ -11,6 +11,7 @@ interface BackgroundVideoProps {
 export default function BackgroundVideo({ src, poster, fallbackImage = '/finance-bg.jpg' }: BackgroundVideoProps) {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [videoError, setVideoError] = useState(false)
 
   useEffect(() => {
     const checkDevice = () => {
@@ -19,9 +20,18 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
       setIsMobile(isMobileDevice)
       console.log('Device check:', { userAgent, isMobileDevice })
     }
-    
+
     checkDevice()
-  }, [])
+
+    // Pre-check if video source exists
+    if (src) {
+      fetch(src, { method: 'HEAD' })
+        .catch(() => {
+          console.warn(`Video file ${src} not found, using fallback image`)
+          setVideoError(true)
+        })
+    }
+  }, [src])
 
   console.log('BackgroundVideo rendering with src:', src, 'isMobile:', isMobile)
 
@@ -32,29 +42,55 @@ export default function BackgroundVideo({ src, poster, fallbackImage = '/finance
   return (
     <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-black" />
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        onLoadedData={() => {
-          console.log('Video loaded successfully')
-          setVideoLoaded(true)
-        }}
-        onCanPlay={() => {
-          console.log('Video can play')
-        }}
-        onError={(e) => {
-          console.error('Video error:', e)
-          console.error('Error details:', e.currentTarget.error)
-        }}
-        onLoadStart={() => console.log('Video loading started')}
-        className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
-      >
-        <source src={src} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+
+      {videoError ? (
+        // Fallback image when video fails
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-80"
+          style={{ backgroundImage: `url('${fallbackImage}')` }}
+        />
+      ) : (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedData={() => {
+            console.log('Video loaded successfully')
+            setVideoLoaded(true)
+          }}
+          onCanPlay={() => {
+            console.log('Video can play')
+          }}
+          onError={(e) => {
+            const videoElement = e.currentTarget as HTMLVideoElement
+            const error = videoElement.error
+
+            // Create a safe error log object
+            const errorInfo = {
+              errorCode: error?.code || 'unknown',
+              errorMessage: error?.message || 'Video failed to load',
+              videoSrc: videoElement.src || src,
+              networkState: videoElement.networkState || 'unknown',
+              readyState: videoElement.readyState || 'unknown',
+              currentTime: videoElement.currentTime || 0
+            }
+
+            console.warn('Video failed to load, using fallback image:', errorInfo)
+
+            // Set fallback behavior
+            setVideoLoaded(false)
+            setVideoError(true)
+          }}
+          onLoadStart={() => console.log('Video loading started')}
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
+        >
+          <source src={src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
+
       <div className="absolute inset-0 bg-black/30"></div>
     </div>
   )

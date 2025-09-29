@@ -29,12 +29,21 @@ export default function Hero({ dict, lang }: HeroProps) {
             lang === 'el' 
               ? 'text-4xl md:text-6xl lg:text-7xl' 
               : 'text-5xl md:text-7xl lg:text-8xl'
-          } font-bold text-text-primary leading-tight mb-6 tracking-tight transition-all duration-1000 ease-out ${
+          } font-bold text-text-primary leading-tight mb-6 tracking-tight text-center transition-all duration-1000 ease-out ${
             titleLoaded 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-12'
           }`}>
-            {dict.hero.tagline}
+{Array.isArray(dict.hero.tagline) ? (
+              dict.hero.tagline.map((line, index) => (
+                <span key={index} className={index === 0 ? 'whitespace-nowrap -ml-8' : ''}>
+                  {line}
+                  {index < dict.hero.tagline.length - 1 && <br />}
+                </span>
+              ))
+            ) : (
+              dict.hero.tagline
+            )}
           </h1>
           <p className={`text-xl md:text-2xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 ease-out ${
             subtitleLoaded 

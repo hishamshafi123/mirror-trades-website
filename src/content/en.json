@@ -1,6 +1,6 @@
 {
   "hero": {
-    "tagline": "Copy the Best. You Don't Need to Be One of Them.",
+    "tagline": ["Copy the best,", "you don't need to be one of them."],
     "subTagline": "Copy trading that delivers results – no trading experience needed.",
     "cta": "Book a Free Zoom Call"
   },
@@ -8,6 +8,7 @@
     "home": "Home",
     "about": "About",
     "portfolios": "Portfolios",
+    "team": "Team",
     "testimonials": "Testimonials",
     "contact": "Contact"
   },
@@ -25,7 +26,7 @@
     "step4_description": "Track your account performance live and adjust your risk settings (e.g. trade size, stop-loss levels) whenever needed to suit your comfort level."
   },
   "portfolios": {
-    "title": "Available Portfolios (Strategies to Copy)",
+    "title": ["Available Portfolios", "(Strategies to Copy)"],
     "subtitle": "Mirror Trades gives you access to multiple trading strategies with proven track records. Each strategy is managed by experienced traders and has a distinct risk/return profile, so you can choose what fits you best.",
     "advantages_title": "Why Mirror Trades – Our Advantages",
     "advantage1_title": "Hand-Picked Traders",
@@ -40,6 +41,24 @@
     "advantage5_description": "We only work with regulated brokers (Vantage Markets, MEX Atlantic), so your funds remain safe in segregated accounts under reputable oversight. You always retain control of your account, Mirror Trades never touches your money.",
     "advantage6_title": "No Cost to the Investor",
     "advantage6_description": "Our service is provided free to users. You pay no fees or subscriptions to Mirror Trades, the only capital involved is what you deposit into your own brokerage account for trading. (Mirror Trades is compensated by our partner brokers, at no extra cost to you.)"
+  },
+  "team": {
+    "title": "Meet Our Team",
+    "subtitle": "The experienced professionals behind Mirror Trades",
+    "members": [
+      {
+        "name": "Aristotelis Benis",
+        "title": "Co-Founder, CEO & Forex Specialist",
+        "bio": "Aristotelis Benis is the Founder and Chief Executive Officer of CH Investment Group, specializing in the global foreign exchange markets. He holds a degree in Shipping Economics and received advanced training from a distinguished mentor in Forex and investments. In addition, he has attended specialized seminars in economics and banking transactions at leading institutions such as Yale University and Duke University. Combining academic knowledge, hands-on experience, and a strategic mindset, he leads the company in developing innovative investment solutions that deliver value to its partners and investors.",
+        "image": "/team/aristotelis-benis.jpg"
+      },
+      {
+        "name": "Konstantinos Krastev",
+        "title": "Co-Founder & COO",
+        "bio": "Konstantinos Krastev is the Co-Founder and Chief Operating Officer of Mirror Trades, with extensive experience in the investment sector and studies in Computer Science, specializing in technical applications. Since 2018, he has been active in the cryptocurrency space, participating both operationally and in an advisory capacity in projects in Greece and abroad. In 2023, he expanded his focus to the international Forex markets. As COO, he is responsible for strategic planning, coordinating daily operations, and ensuring the successful execution of the company's objectives. Thanks to his technological expertise and diverse background across multiple economic sectors, he actively contributes to the development of innovative solutions that leverage technology to enable individuals to grow their capital with transparency, security, and professionalism.",
+        "image": "/team/konstantinos-krastev.jpg"
+      }
+    ]
   },
   "testimonials": {
     "title": "What Our Clients Say",

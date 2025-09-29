@@ -2,7 +2,7 @@ import 'server-only'
 
 export interface Dictionary {
   hero: {
-    tagline: string;
+    tagline: string | string[];
     subTagline: string;
     cta: string;
   };
@@ -10,6 +10,7 @@ export interface Dictionary {
     home: string;
     about: string;
     portfolios: string;
+    team: string;
     testimonials: string;
     contact: string;
   };
@@ -27,7 +28,7 @@ export interface Dictionary {
     step4_description: string;
   };
   portfolios: {
-    title: string;
+    title: string | string[];
     subtitle: string;
     advantages_title: string;
     advantage1_title: string;
@@ -42,6 +43,16 @@ export interface Dictionary {
     advantage5_description: string;
     advantage6_title: string;
     advantage6_description: string;
+  };
+  team: {
+    title: string;
+    subtitle: string;
+    members: {
+      name: string;
+      title: string;
+      bio: string;
+      image: string;
+    }[];
   };
   testimonials: {
     title: string;
