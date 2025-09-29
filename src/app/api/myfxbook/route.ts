@@ -41,7 +41,7 @@ let cachedSession: {
 const SESSION_CACHE_FILE = path.join(process.cwd(), '.myfxbook-session.json')
 
 // Session cache duration: 24 hours (override via env) - cache until error occurs
-const SESSION_CACHE_DURATION = Number(process.env.MYFXBOOK_SESSION_CACHE_DURATION || 24 * 60 * 60 * 1000)
+// const SESSION_CACHE_DURATION = Number(process.env.MYFXBOOK_SESSION_CACHE_DURATION || 24 * 60 * 60 * 1000)
 // Request timeout (ms)
 const REQUEST_TIMEOUT = Number(process.env.MYFXBOOK_TIMEOUT || 10000)
 
@@ -62,7 +62,7 @@ async function loadSessionFromFile(): Promise<{session: string, timestamp: numbe
     if (parsed.session && parsed.timestamp && typeof parsed.timestamp === 'number') {
       return parsed
     }
-  } catch (error) {
+  } catch {
     // File doesn't exist or is corrupted, ignore
   }
   return null
@@ -87,7 +87,7 @@ async function clearSessionCache(): Promise<void> {
   cachedSession = null
   try {
     await fs.unlink(SESSION_CACHE_FILE)
-  } catch (error) {
+  } catch {
     // File might not exist, ignore
   }
 }
@@ -185,8 +185,8 @@ async function getWatchedAccounts(session: string): Promise<MyfxbookAccount[]> {
       // If 500 error or authentication error, clear cache and signal retry
       if (response.status === 500 || response.status === 401 || response.status === 403) {
         await clearSessionCache()
-        const err = new Error('SESSION_INVALID')
-        ;(err as any).code = 'SESSION_INVALID'
+        const err = new Error('SESSION_INVALID') as Error & { code: string }
+        err.code = 'SESSION_INVALID'
         throw err
       }
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -198,8 +198,8 @@ async function getWatchedAccounts(session: string): Promise<MyfxbookAccount[]> {
       // If session expired, clear cache and signal to caller to retry
       if (data.message?.toLowerCase().includes('session') || data.message?.toLowerCase().includes('login')) {
         await clearSessionCache()
-        const err = new Error('SESSION_INVALID')
-        ;(err as any).code = 'SESSION_INVALID'
+        const err = new Error('SESSION_INVALID') as Error & { code: string }
+        err.code = 'SESSION_INVALID'
         throw err
       }
       throw new Error(data.message || 'Failed to fetch watched accounts')
@@ -236,7 +236,7 @@ async function getAccountGain(session: string, accountId: number): Promise<numbe
       // If 500 error or authentication error, clear cache and signal retry
       if (response.status === 500 || response.status === 401 || response.status === 403) {
         await clearSessionCache()
-        const e = new Error('SESSION_INVALID') as any
+        const e = new Error('SESSION_INVALID') as Error & { code: string }
         e.code = 'SESSION_INVALID'
         throw e
       }
@@ -246,11 +246,13 @@ async function getAccountGain(session: string, accountId: number): Promise<numbe
         const msg = String(errJson?.message || '')
         if (msg.toLowerCase().includes('session') || msg.toLowerCase().includes('login')) {
           await clearSessionCache()
-          const e = new Error('SESSION_INVALID') as any
+          const e = new Error('SESSION_INVALID') as Error & { code: string }
           e.code = 'SESSION_INVALID'
           throw e
         }
-      } catch (_) {}
+      } catch {
+        // Ignore JSON parsing errors
+      }
       return 0
     }
 
@@ -258,7 +260,7 @@ async function getAccountGain(session: string, accountId: number): Promise<numbe
     if (data?.error) {
       const msg = String(data?.message || '')
       if (msg.toLowerCase().includes('session') || msg.toLowerCase().includes('login')) {
-        const e = new Error('SESSION_INVALID') as any
+        const e = new Error('SESSION_INVALID') as Error & { code: string }
         e.code = 'SESSION_INVALID'
         throw e
       }
@@ -324,7 +326,7 @@ export async function GET(request: Request) {
       accounts = await getWatchedAccounts(session)
     } catch (err) {
       const msg = err instanceof Error ? (err.message || '') : ''
-      const code = err && typeof err === 'object' ? (err as any).code : undefined
+      const code = err && typeof err === 'object' ? (err as Error & { code?: string }).code : undefined
       if (code === 'SESSION_INVALID' || msg.toLowerCase().includes('session')) {
         // Re-login and retry once
         const newSession = await loginToMyfxbook()
@@ -347,7 +349,7 @@ export async function GET(request: Request) {
           try {
             gain = await getAccountGain(activeSession, account.id)
           } catch (e) {
-            const code = e && typeof e === 'object' ? (e as any).code : undefined
+            const code = e && typeof e === 'object' ? (e as Error & { code?: string }).code : undefined
             if (code === 'SESSION_INVALID') {
               // Re-login and retry once for gain
               activeSession = await loginToMyfxbook()

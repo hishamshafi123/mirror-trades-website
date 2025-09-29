@@ -55,19 +55,18 @@ export default function Portfolios({ lang }: { lang: string }) {
         },
       })
 
-      let result: MyfxbookApiResponse
       if (!response.ok) {
         // Try to extract JSON error message from the API
         try {
           const errJson = await response.json()
           const msg = (errJson?.error || errJson?.message || `HTTP error! status: ${response.status}`)
           throw new Error(msg)
-        } catch (_) {
+        } catch {
           throw new Error(`HTTP error! status: ${response.status} ${response.statusText || ''}`.trim())
         }
       }
 
-      result = await response.json()
+      const result: MyfxbookApiResponse = await response.json()
 
       if (result.success) {
         setPortfolios(result.data)
