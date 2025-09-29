@@ -313,8 +313,14 @@ export async function GET(request: Request) {
     } else {
       // Try existing session first, fallback to login if no session exists
       const existingSession = await getExistingSession()
+      const hardcodedSession = process.env.MYFXBOOK_HARDCODED_SESSION
+
       if (existingSession) {
         session = existingSession
+      } else if (hardcodedSession) {
+        // Use hardcoded session as fallback
+        session = hardcodedSession
+        cachedSession = { session: hardcodedSession, timestamp: Date.now() }
       } else {
         session = await loginToMyfxbook()
       }
