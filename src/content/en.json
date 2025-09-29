@@ -2,7 +2,8 @@
   "hero": {
     "tagline": ["Copy the best,", "you don't need to be one of them."],
     "subTagline": "Copy trading that delivers results – no trading experience needed.",
-    "cta": "Book a Free Zoom Call"
+    "cta": "Book a Free Zoom Call",
+    "scrollLabel": "Scroll to learn more"
   },
   "navigation": {
     "home": "Home",
@@ -79,6 +80,7 @@
   "onboarding": {
     "title": "How to Get Started – Step by Step",
     "cta_button": "START NOW",
+    "readyPrompt": "Ready to start your copy trading journey?",
     "step1_title": "Book a Free Zoom Call",
     "step1_description": "Click the CTA button to schedule a free 15-minute Zoom session. In this call, we'll get to know you, understand your goals, and explain how copy trading with Mirror Trades works. (There's no obligation – it's an opportunity to answer your questions and see if it's a good fit.)",
     "step2_title": "Open a Broker Account",

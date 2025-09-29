@@ -24,6 +24,7 @@ export default function Portfolios({ lang }: { lang: string }) {
   const [portfolios, setPortfolios] = useState<PortfolioData[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     async function loadDictionary() {
@@ -41,44 +42,54 @@ export default function Portfolios({ lang }: { lang: string }) {
   }, [lang])
 
   // Fetch portfolio data from Myfxbook API
-  useEffect(() => {
-    async function fetchPortfolios() {
-      try {
-        setLoading(true)
-        setError(null)
+  const fetchPortfolios = async (opts?: { refresh?: boolean }) => {
+    try {
+      setLoading(true)
+      setError(null)
 
-        const response = await fetch('/api/myfxbook', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+      const url = opts?.refresh ? '/api/myfxbook?refresh=1' : '/api/myfxbook'
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+      let result: MyfxbookApiResponse
+      if (!response.ok) {
+        // Try to extract JSON error message from the API
+        try {
+          const errJson = await response.json()
+          const msg = (errJson?.error || errJson?.message || `HTTP error! status: ${response.status}`)
+          throw new Error(msg)
+        } catch (_) {
+          throw new Error(`HTTP error! status: ${response.status} ${response.statusText || ''}`.trim())
         }
-
-        const result: MyfxbookApiResponse = await response.json()
-
-        if (result.success) {
-          setPortfolios(result.data)
-        } else {
-          throw new Error(result.error || 'Failed to fetch portfolio data')
-        }
-      } catch (err) {
-        console.error('Error fetching portfolios:', err)
-        setError(err instanceof Error ? err.message : 'Failed to load portfolio data')
-
-        // Fallback to mock data if API fails
-        setPortfolios([
-          { name: 'Low Risk Alpha', gain: '+3.08%', drawdown: '12.60%' },
-          { name: 'Gold Queen', gain: '+19.01%', drawdown: '3.87%' }
-        ])
-      } finally {
-        setLoading(false)
       }
-    }
 
+      result = await response.json()
+
+      if (result.success) {
+        setPortfolios(result.data)
+      } else {
+        throw new Error(result.error || 'Failed to fetch portfolio data')
+      }
+    } catch (err) {
+      console.error('Error fetching portfolios:', err)
+      setError(err instanceof Error ? err.message : 'Failed to load portfolio data')
+
+      // Fallback to mock data if API fails
+      setPortfolios([
+        { name: 'Low Risk Alpha', gain: '+3.08%', drawdown: '12.60%' },
+        { name: 'Gold Queen', gain: '+19.01%', drawdown: '3.87%' }
+      ])
+    } finally {
+      setLoading(false)
+      setRefreshing(false)
+    }
+  }
+
+  useEffect(() => {
     fetchPortfolios()
   }, [])
 
@@ -152,6 +163,24 @@ export default function Portfolios({ lang }: { lang: string }) {
               <p className="text-lg text-text-secondary leading-relaxed">
                 {dict.portfolios.subtitle}
               </p>
+              {error && (
+                <div className="mt-4 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => { setRefreshing(true); fetchPortfolios({ refresh: true }) }}
+                    className="inline-flex items-center px-4 py-2 rounded-lg bg-primary-gold text-background-dark font-semibold hover:bg-secondary-gold transition-colors disabled:opacity-60"
+                    disabled={loading || refreshing}
+                  >
+                    {refreshing ? (
+                      <>
+                        <span className="inline-block h-4 w-4 border-2 border-background-dark border-b-transparent rounded-full animate-spin mr-2" />
+                        Refreshing live data
+                      </>
+                    ) : 'Fetch Live Data'}
+                  </button>
+                  <span className="text-xs text-warning-red">{error}</span>
+                </div>
+              )}
             </div>
             
             {/* Portfolio Cards with Live Data */}
@@ -161,7 +190,7 @@ export default function Portfolios({ lang }: { lang: string }) {
                   <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-gold"></div>
                   <p className="mt-2 text-text-secondary">Loading portfolio data...</p>
                 </div>
-              ) : (
+              ) : portfolios.length > 0 ? (
                 portfolios.map((portfolio, index) => (
                   <AnimatedSection key={`${portfolio.name}-${index}`} delay={index * 150} animation="slideUp">
                     <div className="bg-surface-dark rounded-xl p-6 hover:bg-surface-dark/80 transition-colors border border-primary-gold/10 group">
@@ -203,6 +232,11 @@ export default function Portfolios({ lang }: { lang: string }) {
                     </div>
                   </AnimatedSection>
                 ))
+              ) : (
+                <div className="text-center py-8 border border-primary-gold/10 rounded-xl bg-surface-dark/40">
+                  <p className="text-text-secondary">No live portfolios available right now.</p>
+                  <p className="text-xs text-text-secondary/70 mt-1">Add accounts to your Myfxbook Watchlist or adjust filters.</p>
+                </div>
               )}
 
               {/* Error message */}

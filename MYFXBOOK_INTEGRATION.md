@@ -65,15 +65,16 @@ MYFXBOOK_PASSWORD=your-secure-password
 # Optional
 MYFXBOOK_TIMEOUT=10000
 MYFXBOOK_SESSION_CACHE_DURATION=1800000
+# Show only specific accounts by name/keyword (comma-separated)
+# Example: "Low Risk Alpha,Gold Queen"
+MYFXBOOK_ACCOUNT_FILTER=
 ```
 
 ### Portfolio Filtering
 
-The API filters accounts to show only:
-- "Low Risk Alpha"
-- "Gold Queen"
-
-Modify the filtering logic in `/src/app/api/myfxbook/route.ts` to include additional portfolios.
+- By default, the API returns all watched accounts (up to 5).
+- To restrict the list, set `MYFXBOOK_ACCOUNT_FILTER` with comma-separated keywords.
+- If filters match nothing, it falls back to the first few accounts.
 
 ## Error Handling
 

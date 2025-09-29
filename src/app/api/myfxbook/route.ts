@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import { promises as fs } from 'fs'
+import path from 'path'
 
 // TypeScript interfaces for Myfxbook API responses
 interface MyfxbookLoginResponse {
@@ -35,8 +37,79 @@ let cachedSession: {
   timestamp: number
 } | null = null
 
-// Session cache duration: 30 minutes
-const SESSION_CACHE_DURATION = 30 * 60 * 1000
+// File-based session cache path
+const SESSION_CACHE_FILE = path.join(process.cwd(), '.myfxbook-session.json')
+
+// Session cache duration: 24 hours (override via env) - cache until error occurs
+const SESSION_CACHE_DURATION = Number(process.env.MYFXBOOK_SESSION_CACHE_DURATION || 24 * 60 * 60 * 1000)
+// Request timeout (ms)
+const REQUEST_TIMEOUT = Number(process.env.MYFXBOOK_TIMEOUT || 10000)
+
+// Optional: comma-separated names/keywords to include
+// Example: "Low Risk Alpha,Gold Queen"
+const ACCOUNT_FILTERS = (process.env.MYFXBOOK_ACCOUNT_FILTER || '')
+  .split(',')
+  .map(s => s.trim().toLowerCase())
+  .filter(Boolean)
+
+/**
+ * Load session from file cache
+ */
+async function loadSessionFromFile(): Promise<{session: string, timestamp: number} | null> {
+  try {
+    const data = await fs.readFile(SESSION_CACHE_FILE, 'utf-8')
+    const parsed = JSON.parse(data)
+    if (parsed.session && parsed.timestamp && typeof parsed.timestamp === 'number') {
+      return parsed
+    }
+  } catch (error) {
+    // File doesn't exist or is corrupted, ignore
+  }
+  return null
+}
+
+/**
+ * Save session to file cache
+ */
+async function saveSessionToFile(session: string, timestamp: number): Promise<void> {
+  try {
+    await fs.writeFile(SESSION_CACHE_FILE, JSON.stringify({ session, timestamp }))
+  } catch (error) {
+    console.error('Failed to save session to file:', error)
+    // Don't throw, just log - file cache is optional
+  }
+}
+
+/**
+ * Clear session cache (both memory and file)
+ */
+async function clearSessionCache(): Promise<void> {
+  cachedSession = null
+  try {
+    await fs.unlink(SESSION_CACHE_FILE)
+  } catch (error) {
+    // File might not exist, ignore
+  }
+}
+
+/**
+ * Get existing session from cache (memory or file) without time check
+ */
+async function getExistingSession(): Promise<string | null> {
+  // Check memory cache first
+  if (cachedSession?.session) {
+    return cachedSession.session
+  }
+
+  // Try to load from file
+  const fileSession = await loadSessionFromFile()
+  if (fileSession?.session) {
+    cachedSession = fileSession
+    return fileSession.session
+  }
+
+  return null
+}
 
 /**
  * Login to Myfxbook API and get session token
@@ -49,20 +122,19 @@ async function loginToMyfxbook(): Promise<string> {
     throw new Error('Myfxbook credentials not configured')
   }
 
-  // Check if we have a valid cached session
-  if (cachedSession && Date.now() - cachedSession.timestamp < SESSION_CACHE_DURATION) {
-    return cachedSession.session
-  }
-
   try {
     const loginUrl = `https://www.myfxbook.com/api/login.json?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
 
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT)
     const response = await fetch(loginUrl, {
       method: 'GET',
       headers: {
         'User-Agent': 'MirrorTrades-Website/1.0',
       },
+      signal: controller.signal,
     })
+    clearTimeout(timeout)
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -74,11 +146,15 @@ async function loginToMyfxbook(): Promise<string> {
       throw new Error(data.message || 'Failed to login to Myfxbook')
     }
 
-    // Cache the session
+    // Cache the session (memory and file)
+    const timestamp = Date.now()
     cachedSession = {
       session: data.session,
-      timestamp: Date.now()
+      timestamp
     }
+
+    // Save to file asynchronously (don't await to avoid slowing down the response)
+    saveSessionToFile(data.session, timestamp).catch(console.error)
 
     return data.session
   } catch (error) {
@@ -94,23 +170,37 @@ async function getWatchedAccounts(session: string): Promise<MyfxbookAccount[]> {
   try {
     const accountsUrl = `https://www.myfxbook.com/api/get-watched-accounts.json?session=${encodeURIComponent(session)}`
 
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT)
     const response = await fetch(accountsUrl, {
       method: 'GET',
       headers: {
         'User-Agent': 'MirrorTrades-Website/1.0',
       },
+      signal: controller.signal,
     })
+    clearTimeout(timeout)
 
     if (!response.ok) {
+      // If 500 error or authentication error, clear cache and signal retry
+      if (response.status === 500 || response.status === 401 || response.status === 403) {
+        await clearSessionCache()
+        const err = new Error('SESSION_INVALID')
+        ;(err as any).code = 'SESSION_INVALID'
+        throw err
+      }
       throw new Error(`HTTP error! status: ${response.status}`)
     }
 
     const data: MyfxbookAccountsResponse = await response.json()
 
     if (data.error) {
-      // If session expired, clear cache and throw error
-      if (data.message?.includes('session') || data.message?.includes('login')) {
-        cachedSession = null
+      // If session expired, clear cache and signal to caller to retry
+      if (data.message?.toLowerCase().includes('session') || data.message?.toLowerCase().includes('login')) {
+        await clearSessionCache()
+        const err = new Error('SESSION_INVALID')
+        ;(err as any).code = 'SESSION_INVALID'
+        throw err
       }
       throw new Error(data.message || 'Failed to fetch watched accounts')
     }
@@ -118,6 +208,8 @@ async function getWatchedAccounts(session: string): Promise<MyfxbookAccount[]> {
     return data.accounts || []
   } catch (error) {
     console.error('Myfxbook accounts fetch error:', error)
+    // Bubble up specific error so caller can decide to retry
+    if (error instanceof Error) throw error
     throw new Error('Failed to fetch account data from Myfxbook')
   }
 }
@@ -129,19 +221,51 @@ async function getAccountGain(session: string, accountId: number): Promise<numbe
   try {
     const gainUrl = `https://www.myfxbook.com/api/get-gain.json?session=${encodeURIComponent(session)}&id=${accountId}`
 
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT)
     const response = await fetch(gainUrl, {
       method: 'GET',
       headers: {
         'User-Agent': 'MirrorTrades-Website/1.0',
       },
+      signal: controller.signal,
     })
+    clearTimeout(timeout)
 
     if (!response.ok) {
+      // If 500 error or authentication error, clear cache and signal retry
+      if (response.status === 500 || response.status === 401 || response.status === 403) {
+        await clearSessionCache()
+        const e = new Error('SESSION_INVALID') as any
+        e.code = 'SESSION_INVALID'
+        throw e
+      }
+      // Try parse error body for other errors
+      try {
+        const errJson = await response.json()
+        const msg = String(errJson?.message || '')
+        if (msg.toLowerCase().includes('session') || msg.toLowerCase().includes('login')) {
+          await clearSessionCache()
+          const e = new Error('SESSION_INVALID') as any
+          e.code = 'SESSION_INVALID'
+          throw e
+        }
+      } catch (_) {}
       return 0
     }
 
     const data = await response.json()
-    return data.error ? 0 : (data.gain || 0)
+    if (data?.error) {
+      const msg = String(data?.message || '')
+      if (msg.toLowerCase().includes('session') || msg.toLowerCase().includes('login')) {
+        const e = new Error('SESSION_INVALID') as any
+        e.code = 'SESSION_INVALID'
+        throw e
+      }
+      return 0
+    }
+
+    return data.gain || 0
   } catch (error) {
     console.error(`Failed to fetch gain for account ${accountId}:`, error)
     return 0
@@ -161,15 +285,58 @@ function formatPercentage(value: number | undefined): string {
 /**
  * Main API handler
  */
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    // Step 1: Login and get session
-    const session = await loginToMyfxbook()
+    const url = new URL(request.url)
+    const refresh = url.searchParams.get('refresh') === '1'
+    const sessionParam = url.searchParams.get('session') || undefined
+    // Helpful preflight validation
+    if (!process.env.MYFXBOOK_EMAIL || !process.env.MYFXBOOK_PASSWORD) {
+      return NextResponse.json({
+        success: false,
+        error: 'Myfxbook credentials not configured. Set MYFXBOOK_EMAIL and MYFXBOOK_PASSWORD.',
+        data: []
+      }, { status: 500 })
+    }
+    // Step 1: Determine session source - always try existing session first
+    let session: string
+    if (sessionParam) {
+      // Use provided session directly; optionally cache it
+      session = sessionParam
+      cachedSession = { session, timestamp: Date.now() }
+    } else if (refresh) {
+      // Force refresh - clear cache and login
+      await clearSessionCache()
+      session = await loginToMyfxbook()
+    } else {
+      // Try existing session first, fallback to login if no session exists
+      const existingSession = await getExistingSession()
+      if (existingSession) {
+        session = existingSession
+      } else {
+        session = await loginToMyfxbook()
+      }
+    }
 
-    // Step 2: Fetch watched accounts
-    const accounts = await getWatchedAccounts(session)
+    // Step 2: Fetch watched accounts (with one automatic session-recovery retry)
+    let accounts: MyfxbookAccount[] = []
+    try {
+      accounts = await getWatchedAccounts(session)
+    } catch (err) {
+      const msg = err instanceof Error ? (err.message || '') : ''
+      const code = err && typeof err === 'object' ? (err as any).code : undefined
+      if (code === 'SESSION_INVALID' || msg.toLowerCase().includes('session')) {
+        // Re-login and retry once
+        const newSession = await loginToMyfxbook()
+        accounts = await getWatchedAccounts(newSession)
+        session = newSession
+      } else {
+        throw err
+      }
+    }
 
     // Step 3: Process and format the data
+    let activeSession = session
     const portfolios: PortfolioData[] = await Promise.all(
       accounts.map(async (account) => {
         let gain = account.gain
@@ -177,7 +344,18 @@ export async function GET() {
 
         // If gain is not available, try to fetch it separately
         if (gain === undefined) {
-          gain = await getAccountGain(session, account.id)
+          try {
+            gain = await getAccountGain(activeSession, account.id)
+          } catch (e) {
+            const code = e && typeof e === 'object' ? (e as any).code : undefined
+            if (code === 'SESSION_INVALID') {
+              // Re-login and retry once for gain
+              activeSession = await loginToMyfxbook()
+              gain = await getAccountGain(activeSession, account.id)
+            } else {
+              throw e
+            }
+          }
         }
 
         return {
@@ -188,11 +366,18 @@ export async function GET() {
       })
     )
 
-    // Filter to only include the specific accounts we want
-    const filteredPortfolios = portfolios.filter(portfolio =>
-      portfolio.name.toLowerCase().includes('low risk alpha') ||
-      portfolio.name.toLowerCase().includes('gold queen')
-    )
+    // Filter to only include specific accounts if filters are configured
+    let filteredPortfolios = portfolios
+    if (ACCOUNT_FILTERS.length > 0) {
+      filteredPortfolios = portfolios.filter(p =>
+        ACCOUNT_FILTERS.some(f => p.name.toLowerCase().includes(f))
+      )
+    }
+
+    // If filtering resulted in no items, fall back to the original list (first 5)
+    if (filteredPortfolios.length === 0) {
+      filteredPortfolios = portfolios.slice(0, 5)
+    }
 
     return NextResponse.json({
       success: true,

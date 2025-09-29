@@ -26,9 +26,9 @@ export default function Hero({ dict, lang }: HeroProps) {
         {/* Hero Content */}
         <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className={`${
-            lang === 'el' 
-              ? 'text-4xl md:text-6xl lg:text-7xl' 
-              : 'text-5xl md:text-7xl lg:text-8xl'
+            lang === 'el'
+              ? 'text-3xl sm:text-4xl md:text-6xl lg:text-7xl'
+              : 'text-4xl sm:text-5xl md:text-7xl lg:text-8xl'
           } font-bold text-text-primary leading-tight mb-6 tracking-tight text-center transition-all duration-1000 ease-out ${
             titleLoaded 
               ? 'opacity-100 translate-y-0' 
@@ -36,7 +36,10 @@ export default function Hero({ dict, lang }: HeroProps) {
           }`}>
 {Array.isArray(dict.hero.tagline) ? (
               dict.hero.tagline.map((line, index) => (
-                <span key={index} className={index === 0 ? 'whitespace-nowrap -ml-8' : ''}>
+                <span
+                  key={index}
+                  className={index === 0 ? 'md:whitespace-nowrap md:-ml-8' : ''}
+                >
                   {line}
                   {index < dict.hero.tagline.length - 1 && <br />}
                 </span>
@@ -45,7 +48,9 @@ export default function Hero({ dict, lang }: HeroProps) {
               dict.hero.tagline
             )}
           </h1>
-          <p className={`text-xl md:text-2xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 ease-out ${
+          <p className={`${
+            lang === 'el' ? 'text-base sm:text-lg md:text-2xl' : 'text-lg md:text-2xl'
+          } text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 ease-out ${
             subtitleLoaded 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-8'
@@ -74,7 +79,7 @@ export default function Hero({ dict, lang }: HeroProps) {
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
           <div className="flex flex-col items-center text-text-secondary">
-            <span className="text-sm mb-2 opacity-75">Scroll to learn more</span>
+            <span className="text-sm mb-2 opacity-75">{dict.hero.scrollLabel || 'Scroll to learn more'}</span>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>

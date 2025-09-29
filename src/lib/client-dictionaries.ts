@@ -3,6 +3,7 @@ export interface Dictionary {
     tagline: string | string[];
     subTagline: string;
     cta: string;
+    scrollLabel?: string;
   };
   navigation: {
     home: string;
@@ -71,6 +72,7 @@ export interface Dictionary {
   onboarding: {
     title: string;
     cta_button: string;
+    readyPrompt?: string;
     step1_title: string;
     step1_description: string;
     step2_title: string;

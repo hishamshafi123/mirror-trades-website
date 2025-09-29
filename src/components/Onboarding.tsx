@@ -124,7 +124,7 @@ export default async function Onboarding({ lang }: OnboardingProps) {
         {/* Bottom CTA */}
         <div className="text-center mt-16">
           <p className="text-text-secondary mb-6 text-lg">
-            Ready to start your copy trading journey?
+            {dict.onboarding.readyPrompt || 'Ready to start your copy trading journey?'}
           </p>
           <a 
             href="https://calendly.com/costadaino/15min?fbclid=PAVERFWAMmWURleHRuA2FlbQIxMAABpwoCkCntYXgV4wbQ3JluQcJFhFCMAAIAuqpe0aOdLUQHoVd2Ot0_c6VHufDQ_aem_rUYMIZIOloG7laACXAAxDg&month=2025-09"
