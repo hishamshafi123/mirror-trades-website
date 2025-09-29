@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Gold queen",
+    "gain": "+19.01%",
+    "drawdown": "3.87%"
+  },
+  {
+    "id": 2,
+    "name": "Low Risk Alpha",
+    "gain": "+3.08%",
+    "drawdown": "12.60%"
+  }
+]

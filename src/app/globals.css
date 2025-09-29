@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --primary-gold: #FFD700;
+  --secondary-gold: #FFC107;
+  --accent-gold: #B8860B;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom Gold Color Classes - High Priority */
+.text-primary-gold { color: #FFD700 !important; }
+.bg-primary-gold { background-color: #FFD700 !important; }
+.text-secondary-gold { color: #FFC107 !important; }
+.bg-secondary-gold { background-color: #FFC107 !important; }
+.text-accent-gold { color: #B8860B !important; }
+.bg-accent-gold { background-color: #B8860B !important; }
+.text-background-dark { color: #0A0A0A !important; }
+.bg-background-dark { background-color: #0A0A0A !important; }
+.text-surface-dark { color: #1A1A1A !important; }
+.bg-surface-dark { background-color: #1A1A1A !important; }
+.text-text-primary { color: #FFFFFF !important; }
+.text-text-secondary { color: #E0E0E0 !important; }
+.text-success-green { color: #00FF88 !important; }
+.bg-success-green { background-color: #00FF88 !important; }
+.text-warning-red { color: #FF4444 !important; }
+.bg-warning-red { background-color: #FF4444 !important; }
+
+/* Hover effects */
+.hover\:text-primary-gold:hover { color: #FFD700 !important; }
+.hover\:bg-primary-gold:hover { background-color: #FFD700 !important; }
+.hover\:bg-secondary-gold:hover { background-color: #FFC107 !important; }
+
+/* Border colors */
+.border-primary-gold { border-color: #FFD700 !important; }
+.border-surface-dark { border-color: #1A1A1A !important; }
+
+/* Focus ring colors */
+.focus\:ring-primary-gold:focus { --tw-ring-color: #FFD700 !important; }
+
+/* Backdrop blur and opacity support */
+.bg-background-dark\/80 { background-color: rgba(10, 10, 10, 0.8) !important; }
+.bg-background-dark\/60 { background-color: rgba(10, 10, 10, 0.6) !important; }
+.bg-surface-dark\/80 { background-color: rgba(26, 26, 26, 0.8) !important; }
+.bg-surface-dark\/95 { background-color: rgba(26, 26, 26, 0.95) !important; }
+.bg-primary-gold\/50 { background-color: rgba(255, 215, 0, 0.5) !important; }

@@ -1,0 +1,190 @@
+{
+  "hero": {
+    "tagline": ["Copy the best,", "you don't need to be one of them."],
+    "subTagline": "Copy trading that delivers results – no trading experience needed.",
+    "cta": "Book a Free Zoom Call",
+    "scrollLabel": "Scroll to learn more"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "portfolios": "Portfolios",
+    "team": "Team",
+    "testimonials": "Testimonials",
+    "contact": "Contact"
+  },
+  "explanation": {
+    "title": "How Copy Trading Works",
+    "subtitle": "A simple, transparent, and effective way to trade.",
+    "what_is_copy_trading": "Copy trading allows investors to automatically replicate the trades of experienced traders in their own account, with no prior trading experience required. With Mirror Trades, you can achieve results without spending your time trading the markets yourself.",
+    "step1_title": "Choose a Trader",
+    "step1_description": "Browse the list of available professional traders and select one that matches your financial goals and risk profile.",
+    "step2_title": "Start Copy Trading",
+    "step2_description": "With a few clicks, connect your account and begin automatically mirroring all trades of the chosen expert in real time.",
+    "step3_title": "Stop Anytime",
+    "step3_description": "You retain full control – you can pause or stop copying trades at any moment, instantly and without any penalties or commitments.",
+    "step4_title": "Monitor & Adjust",
+    "step4_description": "Track your account performance live and adjust your risk settings (e.g. trade size, stop-loss levels) whenever needed to suit your comfort level."
+  },
+  "portfolios": {
+    "title": ["Available Portfolios", "(Strategies to Copy)"],
+    "subtitle": "Mirror Trades gives you access to multiple trading strategies with proven track records. Each strategy is managed by experienced traders and has a distinct risk/return profile, so you can choose what fits you best.",
+    "advantages_title": "Why Mirror Trades – Our Advantages",
+    "advantage1_title": "Hand-Picked Traders",
+    "advantage1_description": "Only traders with consistent, verified track records are featured on our platform. Every trader undergoes at least a 5-month vetting period and strict criteria before becoming available for copy trading.",
+    "advantage2_title": "Transparency",
+    "advantage2_description": "You see real, verified performance, we don't promise miracles or \"guaranteed\" profits. All results are presented with open statistics (Myfxbook.) so you know exactly what you are copying.",
+    "advantage3_title": "Support & Guidance",
+    "advantage3_description": "You're not on your own, our team guides you at every step. We provide education, strategic advice, and one-on-one support via Telegram or Zoom to help you maximize your experience.",
+    "advantage4_title": "Specialization & Experience",
+    "advantage4_description": "We are a group of passionate traders with years of market experience. We specialize in copy trading, we research, monitor, and pick the best strategies for you. Our mission is to share what works, backed by data and discipline, to help you succeed realistically.",
+    "advantage5_title": "Security & Reliability",
+    "advantage5_description": "We only work with regulated brokers (Vantage Markets, MEX Atlantic), so your funds remain safe in segregated accounts under reputable oversight. You always retain control of your account, Mirror Trades never touches your money.",
+    "advantage6_title": "No Cost to the Investor",
+    "advantage6_description": "Our service is provided free to users. You pay no fees or subscriptions to Mirror Trades, the only capital involved is what you deposit into your own brokerage account for trading. (Mirror Trades is compensated by our partner brokers, at no extra cost to you.)"
+  },
+  "team": {
+    "title": "Meet Our Team",
+    "subtitle": "The experienced professionals behind Mirror Trades",
+    "members": [
+      {
+        "name": "Aristotelis Benis",
+        "title": "Co-Founder, CEO & Forex Specialist",
+        "bio": "Aristotelis Benis is the Founder and Chief Executive Officer of CH Investment Group, specializing in the global foreign exchange markets. He holds a degree in Shipping Economics and received advanced training from a distinguished mentor in Forex and investments. In addition, he has attended specialized seminars in economics and banking transactions at leading institutions such as Yale University and Duke University. Combining academic knowledge, hands-on experience, and a strategic mindset, he leads the company in developing innovative investment solutions that deliver value to its partners and investors.",
+        "image": "/team/aristotelis-benis.jpg"
+      },
+      {
+        "name": "Konstantinos Krastev",
+        "title": "Co-Founder & COO",
+        "bio": "Konstantinos Krastev is the Co-Founder and Chief Operating Officer of Mirror Trades, with extensive experience in the investment sector and studies in Computer Science, specializing in technical applications. Since 2018, he has been active in the cryptocurrency space, participating both operationally and in an advisory capacity in projects in Greece and abroad. In 2023, he expanded his focus to the international Forex markets. As COO, he is responsible for strategic planning, coordinating daily operations, and ensuring the successful execution of the company's objectives. Thanks to his technological expertise and diverse background across multiple economic sectors, he actively contributes to the development of innovative solutions that leverage technology to enable individuals to grow their capital with transparency, security, and professionalism.",
+        "image": "/team/konstantinos-krastev.jpg"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "performance_title": "Live Performance Results",
+    "disclaimer": "Past performance is not indicative of future results."
+  },
+  "trust": {
+    "title": "Why Trust Us?",
+    "intro_paragraph": "Mirror Trades was founded on the principles of transparency and credibility. We do not promise get-rich-quick schemes or \"guaranteed\" investments, instead, we let the results speak for themselves. We showcase only real, verified performance data and are upfront about the risks involved. Our team is composed of seasoned professionals with years in the markets, specializing in trading.",
+    "transparency_title": "Transparency",
+    "transparency_description": "You will have a complete view of what's happening in your account at all times. Through the copy trading platform, you can see live open positions, profit/loss, and trade history. Additionally, we share regular updates and performance reports so you're always informed about your portfolio's progress.",
+    "expertise_title": "Expertise",
+    "expertise_description": "By focusing exclusively on copy trading, we know this field inside out. We rigorously evaluate every trader we feature, analyzing their strategy, risk behavior, and long-term performance. This means we offer you access to proven strategies that would be hard to find on your own.",
+    "guidance_title": "Guidance",
+    "guidance_description": "From day one, we stand by your side. We help you open your account, complete onboarding, and understand how to use the copy trading app. We provide educational materials (videos, articles) and personal support, answering all your questions. We want you to feel confident at every step.",
+    "disclaimer_paragraph": "Finally, it's important for you to know that we are not investment advisors, we will not tell you what to do with your money. We provide you the tools and access to mirror professionals, but the ultimate decisions are yours. We believe in empowering investors with knowledge and realistic expectations."
+  },
+  "onboarding": {
+    "title": "How to Get Started – Step by Step",
+    "cta_button": "START NOW",
+    "readyPrompt": "Ready to start your copy trading journey?",
+    "step1_title": "Book a Free Zoom Call",
+    "step1_description": "Click the CTA button to schedule a free 15-minute Zoom session. In this call, we'll get to know you, understand your goals, and explain how copy trading with Mirror Trades works. (There's no obligation – it's an opportunity to answer your questions and see if it's a good fit.)",
+    "step2_title": "Open a Broker Account",
+    "step2_description": "After the call, we'll guide you to open an account with one of our partner regulated brokers (Vantage or MEX Atlantic). The signup process is online and only takes a few minutes. Note: This account will be in your name and only you will have access to it and control over its funds.",
+    "step3_title": "Onboarding & Copy Trading Setup",
+    "step3_description": "Once your brokerage account is approved, we help you connect it to the copy trading platform. You will receive video tutorials and step-by-step guides (in both Greek and English) on downloading the app (e.g. Vantage App or Multibank's copy trading app) and starting to copy the chosen trader. The entire onboarding typically completes within 1 day.",
+    "step4_title": "Telegram Support & Community",
+    "step4_description": "After you're up and running, we invite you to our VIP Telegram chat community. There you can ask questions, see announcements, and share experiences with other investors. Additionally, you'll have direct contact with your personal account manager for any help you need.",
+    "step5_title": "Continuous Monitoring & Review",
+    "step5_description": "Our team continuously monitors the strategies and market conditions. You will receive periodic updates (e.g. weekly or monthly reports) about your portfolio's performance. We can evaluate results together and make adjustments if necessary (e.g. switching to a different trader or tweaking risk settings), always based on your preferences."
+  },
+  "riskWarning": {
+    "title": "Risk Warning",
+    "message": "Trading CFDs and using CopyTrading services involve a high risk of capital loss. Mirror Trades does not provide investment advice. Each investor is fully responsible for their own decisions.",
+    "instruction": "Click \"I Understand\" to continue to the website.",
+    "acceptButton": "I Understand",
+    "riskDisclosureLink": "See full Risk Disclosure",
+    "termsLink": "Terms & Conditions"
+  },
+  "newsletter": {
+    "title": "Stay Updated!",
+    "description": "Subscribe to our newsletter to receive updates, tips, and reports from Mirror Trades.",
+    "emailPlaceholder": "Enter your email address",
+    "consentText": "I agree to receive promotional emails from Mirror Trades and confirm I have read the Privacy Policy.",
+    "gdprNote": "You can unsubscribe at any time. Your address will be used only to send our updates, in compliance with GDPR.",
+    "submitButton": "Subscribe",
+    "privacyPolicyLink": "Privacy Policy"
+  },
+  "footer": {
+    "copyright": "© 2025 Mirror Trades. All rights reserved.",
+    "tagline": "Mirror Trades is not a broker/dealer. All trading involves risk.",
+    "sections": {
+      "navigation": {
+        "title": "Navigation",
+        "home": "Home",
+        "services": "Services", 
+        "portfolios": "Portfolios",
+        "faqs": "FAQs",
+        "contact": "Contact"
+      },
+      "legal": {
+        "title": "Legal",
+        "termsOfUse": "Terms of Use",
+        "privacyPolicy": "Privacy Policy",
+        "cookiesPolicy": "Cookies Policy",
+        "riskDisclosure": "Risk Disclosure",
+        "regulatoryInfo": "Regulatory Information"
+      },
+      "contact": {
+        "title": "Contact & Social",
+        "description": "Contact us on Telegram or via email:",
+        "email": "info@mirrortrades.gr",
+        "followUs": "Follow us:"
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "contact_prompt": "Didn't find your question? Contact us via chat – we're happy to help.",
+    "questions": [
+      {
+        "question": "What is Copy Trading?",
+        "answer": "Copy Trading is an investment technique that allows investors to automatically replicate the trades of experienced traders in real time. When a professional trader opens, closes, or modifies a position, the same actions are automatically executed in your account. This way, you can benefit from the experience and strategy of skilled traders without needing trading knowledge yourself or monitoring the markets daily."
+      },
+      {
+        "question": "Do I need to pay anything for Mirror Trades?",
+        "answer": "No, using Mirror Trades is 100% free for you. There are no hidden fees or subscriptions for our service. The only cost is the capital you deposit with your broker to fund your trading account, and any charges from the broker itself (e.g., spread, transaction commissions), which apply as they normally would to any account."
+      },
+      {
+        "question": "What is the minimum deposit to get started?",
+        "answer": "The minimum recommended initial deposit is $200 (around €180). For better results and more risk flexibility, many of our investors start with $500+."
+      },
+      {
+        "question": "Is Copy Trading high risk?",
+        "answer": "The risk depends on you – you decide how much capital to copy and with what risk settings. You can choose very low exposure at the beginning. In any case, trading CFDs carries risk and there is a possibility of capital loss. We recommend starting conservatively: with the lowest possible risk, and after observing results for a few weeks, adjusting as you feel comfortable. Always invest amounts you can afford to lose and stay informed about the risks."
+      },
+      {
+        "question": "What kind of returns can I expect?",
+        "answer": "There are no guaranteed or fixed returns; they depend on market conditions and the strategy of the trader you follow. However, you will see the performance history of the strategies inside the company's MyFxBook at any time, with statistics such as profit percentage, maximum drawdown, win rate, etc. This helps you set realistic expectations. Remember: past performance does not guarantee future results, but we work with the goal of consistent profits and minimizing losses."
+      },
+      {
+        "question": "How exactly are the trades executed?",
+        "answer": "Once you connect your account and choose which trader to copy, all orders from that trader are automatically copied into your account in real time. This means that when the trader opens, closes, or modifies a position (e.g., stop-loss, take-profit), the same action happens in your account. It's a fully automated process – you don't need to do anything manually during the day. Of course, you always have the option to intervene if you wish (e.g., close a position earlier)."
+      },
+      {
+        "question": "Can I adjust my risk?",
+        "answer": "Yes, you have full control. You can set the trade size you copy relative to the trader (e.g., 1:1 or a smaller percentage). You can also set loss limits (e.g., maximum daily drawdown) through the platform's tools. At any moment, you can pause or completely stop copying with a single click. This flexibility allows you to tailor Copy Trading to your own needs."
+      },
+      {
+        "question": "Are my personal details and money safe?",
+        "answer": "Yes. Your personal data is fully protected, and the platforms of our partner brokers (Vantage, Multibank) use encryption and strict security protocols for your information. In addition, these brokers operate under regulatory frameworks, which means they provide client fund protection (e.g., segregated accounts, and possibly even client fund insurance coverage). Regarding your money: it remains in your own broker account. Mirror Trades has no access to or rights over your funds – you alone manage them."
+      },
+      {
+        "question": "How am I supported as a client?",
+        "answer": "We offer personalized support. You will have direct communication with us via Telegram for any issue, from technical assistance to trading questions. Additionally, the brokers themselves (Vantage, Multibank) have support teams you can use for platform or account matters. On top of that, you'll have a dedicated account manager from Mirror Trades who will help you with anything you need throughout our collaboration."
+      },
+      {
+        "question": "Can I stop copying the trader whenever I want?",
+        "answer": "Absolutely. There are no time commitments. At any moment, you can click \"Stop\" in the app to stop copying a trader. You can even disconnect your account completely from the copy trading system if you wish. There are no penalties or fees for doing this. This flexibility is a key part of our service – you're in control at all times."
+      },
+      {
+        "question": "Do I need trading experience to do this?",
+        "answer": "Not at all. Copy Trading is designed specifically for people who have no experience or time for active trading. You don't need to know technical analysis, nor do you need to monitor the markets daily. Professional traders do the work, while you simply decide whom to follow and set your parameters. Of course, it always helps to understand basic concepts (and that's why we provide educational material), but no prior experience is required."
+      }
+    ]
+  }
+}
