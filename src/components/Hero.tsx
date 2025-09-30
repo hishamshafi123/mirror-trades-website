@@ -27,11 +27,11 @@ export default function Hero({ dict, lang }: HeroProps) {
         <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className={`${
             lang === 'el'
-              ? 'text-3xl sm:text-4xl md:text-6xl lg:text-7xl'
-              : 'text-4xl sm:text-5xl md:text-7xl lg:text-8xl'
+              ? 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl'
+              : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'
           } font-bold text-text-primary leading-tight mb-6 tracking-tight text-center transition-all duration-1000 ease-out ${
-            titleLoaded 
-              ? 'opacity-100 translate-y-0' 
+            titleLoaded
+              ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-12'
           }`}>
 {Array.isArray(dict.hero.tagline) ? (
@@ -49,10 +49,10 @@ export default function Hero({ dict, lang }: HeroProps) {
             )}
           </h1>
           <p className={`${
-            lang === 'el' ? 'text-base sm:text-lg md:text-2xl' : 'text-lg md:text-2xl'
+            lang === 'el' ? 'text-lg sm:text-xl md:text-2xl' : 'text-xl sm:text-2xl md:text-2xl'
           } text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 ease-out ${
-            subtitleLoaded 
-              ? 'opacity-100 translate-y-0' 
+            subtitleLoaded
+              ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-8'
           }`}>
             {dict.hero.subTagline}
