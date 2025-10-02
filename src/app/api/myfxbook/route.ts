@@ -295,7 +295,7 @@ export async function GET(request: Request) {
     }
 
     // Step 3: Process and format the data
-    let activeSession = session
+    const activeSession = session
     const portfolios: PortfolioData[] = await Promise.all(
       accounts.map(async (account) => {
         let gain = account.gain
@@ -305,7 +305,7 @@ export async function GET(request: Request) {
         if (gain === undefined) {
           try {
             gain = await getAccountGain(activeSession, account.id)
-          } catch (e) {
+          } catch {
             // If gain fetch fails, just set to 0 - no retry logic
             gain = 0
           }
