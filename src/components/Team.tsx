@@ -70,16 +70,6 @@ export default function Team({ lang }: { lang: string }) {
                     {member.bio}
                   </p>
 
-                  {/* Professional credentials highlight */}
-                  <div className="mt-6 pt-6 border-t border-primary-gold/20 w-full">
-                    <div className="flex items-center justify-center gap-2">
-                      <div className="w-2 h-2 bg-primary-gold rounded-full"></div>
-                      <span className="text-sm text-primary-gold font-medium">
-                        {lang === 'el' ? 'Επαγγελματίας Trader' : 'Professional Trader'}
-                      </span>
-                      <div className="w-2 h-2 bg-primary-gold rounded-full"></div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </AnimatedSection>
