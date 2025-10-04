@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
+import type { ISourceOptions } from '@tsparticles/engine';
 
 export default function FloatingGoldParticles() {
   console.log('🎉 FloatingGoldParticles component mounted!');
@@ -15,7 +16,7 @@ export default function FloatingGoldParticles() {
     });
   }, []);
 
-  const options = useMemo(() => ({
+  const options: ISourceOptions = useMemo(() => ({
     background: {
       color: {
         value: 'transparent',
@@ -99,7 +100,7 @@ export default function FloatingGoldParticles() {
     <div className="fixed inset-0 pointer-events-none z-[1]">
       <Particles
         id="tsparticles"
-        options={options as any}
+        options={options}
         className="w-full h-full"
       />
     </div>
