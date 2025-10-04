@@ -3,7 +3,7 @@ import { getDictionary } from '@/lib/dictionaries'
 export default async function Explanation({ lang }: { lang: string }) {
   const dict = await getDictionary(lang)
   return (
-    <section id="explanation" className="py-20 bg-black relative overflow-hidden">
+    <section id="explanation" className="py-20 bg-black/30 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/5 via-transparent to-secondary-gold/5"></div>
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-gold/3 rounded-full blur-3xl"></div>
@@ -19,7 +19,7 @@ export default async function Explanation({ lang }: { lang: string }) {
           </p>
           
           {/* What is Copy Trading Description */}
-          <div className="bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-2xl p-8 mb-16 max-w-4xl mx-auto border border-primary-gold/20 shadow-2xl shadow-primary-gold/10">
+          <div className="bg-gradient-to-r from-gray-900/40 to-gray-800/40 backdrop-blur-sm rounded-2xl p-8 mb-16 max-w-4xl mx-auto border border-primary-gold/20 shadow-2xl shadow-primary-gold/10">
             <div className="flex items-center justify-center mb-6">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/30 to-secondary-gold/30 rounded-3xl blur-xl opacity-60"></div>
@@ -43,7 +43,7 @@ export default async function Explanation({ lang }: { lang: string }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Step 1 - Choose a Trader */}
           <div className="group perspective-1000">
-            <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
+            <div className="bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
               <div className="flex flex-col items-center text-center">
                 <div className="relative mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 to-secondary-gold/20 rounded-3xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity"></div>
@@ -65,7 +65,7 @@ export default async function Explanation({ lang }: { lang: string }) {
 
           {/* Step 2 - Start Copy Trading */}
           <div className="group perspective-1000">
-            <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
+            <div className="bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
               <div className="flex flex-col items-center text-center">
                 <div className="relative mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 to-secondary-gold/20 rounded-3xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity"></div>
@@ -87,7 +87,7 @@ export default async function Explanation({ lang }: { lang: string }) {
 
           {/* Step 3 - Stop Anytime */}
           <div className="group perspective-1000">
-            <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
+            <div className="bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
               <div className="flex flex-col items-center text-center">
                 <div className="relative mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 to-secondary-gold/20 rounded-3xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity"></div>
@@ -109,7 +109,7 @@ export default async function Explanation({ lang }: { lang: string }) {
 
           {/* Step 4 - Monitor & Adjust */}
           <div className="group perspective-1000">
-            <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
+            <div className="bg-gradient-to-br from-gray-900/40 to-gray-800/40 backdrop-blur-lg rounded-2xl p-8 border border-primary-gold/30 hover:border-primary-gold/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary-gold/20 group-hover:rotate-y-6 transform-gpu">
               <div className="flex flex-col items-center text-center">
                 <div className="relative mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 to-secondary-gold/20 rounded-3xl blur-lg opacity-50 group-hover:opacity-70 transition-opacity"></div>

@@ -17,8 +17,8 @@ export default function Hero({ dict, lang }: HeroProps) {
     <section id="hero" className="relative h-screen flex items-center justify-center text-center overflow-hidden">
         {/* Background Video/Image */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-background-dark/90 via-background-dark/75 to-surface-dark/90 z-10"></div>
-          <div className="absolute inset-0 bg-[url('/finance-bg.jpg')] bg-cover bg-center bg-no-repeat"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-background-dark/40 via-background-dark/30 to-surface-dark/40 z-10"></div>
+          <div className="absolute inset-0 bg-[url('/finance-bg.jpg')] bg-cover bg-center bg-no-repeat opacity-30"></div>
           {/* Fallback pattern for when image is not available */}
           <div className="absolute inset-0 bg-gradient-to-br from-accent-gold/5 via-transparent to-primary-gold/5"></div>
         </div>

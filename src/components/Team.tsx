@@ -28,7 +28,7 @@ export default function Team({ lang }: { lang: string }) {
   }
 
   return (
-    <section id="team" className="py-20 bg-surface-dark">
+    <section id="team" className="py-20 bg-surface-dark/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection animation="slideUp">
           <div className="text-center mb-16">

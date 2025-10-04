@@ -92,7 +92,7 @@ export default function Testimonials({ lang, dict }: TestimonialsProps) {
   }
 
   return (
-    <section id="testimonials" className="py-20 bg-surface-dark">
+    <section id="testimonials" className="py-20 bg-surface-dark/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Two-column layout */}

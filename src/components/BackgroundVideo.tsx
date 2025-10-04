@@ -44,7 +44,7 @@ export default function BackgroundVideo({ src, fallbackImage = '/finance-bg.jpg'
       {videoError ? (
         // Fallback image when video fails
         <div
-          className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-80"
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-40"
           style={{ backgroundImage: `url('${fallbackImage}')` }}
         />
       ) : (
@@ -80,14 +80,14 @@ export default function BackgroundVideo({ src, fallbackImage = '/finance-bg.jpg'
             setVideoError(true)
           }}
           onLoadStart={() => console.log('Video loading started')}
-          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover opacity-40"
         >
           <source src={src} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       )}
 
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 bg-black/50"></div>
     </div>
   )
 }
