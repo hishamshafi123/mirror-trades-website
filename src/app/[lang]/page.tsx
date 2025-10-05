@@ -14,6 +14,13 @@ import AnimatedSection from '@/components/AnimatedSection'
 import RiskWarningModal from '@/components/RiskWarningModal'
 import FloatingCTA from '@/components/FloatingCTA'
 
+export function generateStaticParams() {
+  return [
+    { lang: 'en' },
+    { lang: 'el' }
+  ]
+}
+
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const dict = await getDictionary(lang)
