@@ -17,6 +17,7 @@ interface MyfxbookApiResponse {
   success: boolean
   data: PortfolioData[]
   error?: string
+  usingMockData?: boolean
 }
 
 export default function Portfolios({ lang }: { lang: string }) {
@@ -25,6 +26,7 @@ export default function Portfolios({ lang }: { lang: string }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
+  const [usingMockData, setUsingMockData] = useState(false)
 
   useEffect(() => {
     async function loadDictionary() {
@@ -70,6 +72,13 @@ export default function Portfolios({ lang }: { lang: string }) {
 
       if (result.success) {
         setPortfolios(result.data)
+        setUsingMockData(result.usingMockData || false)
+        if (result.error && result.usingMockData) {
+          // Set error but don't throw since we have mock data
+          setError(result.error)
+        } else {
+          setError(null)
+        }
       } else {
         throw new Error(result.error || 'Failed to fetch portfolio data')
       }
@@ -100,6 +109,18 @@ export default function Portfolios({ lang }: { lang: string }) {
   const extractNumber = (str: string) => {
     const match = str.match(/[\d.]+/)
     return match ? parseFloat(match[0]) : 0
+  }
+
+  // Extract numeric values with sign from percentage strings
+  const extractSignedNumber = (str: string) => {
+    const match = str.match(/[+-]?[\d.]+/)
+    return match ? parseFloat(match[0]) : 0
+  }
+
+  // Get color class based on gain value
+  const getGainColorClass = (gainStr: string) => {
+    const gainValue = extractSignedNumber(gainStr)
+    return gainValue >= 0 ? 'text-success-green' : 'text-warning-red'
   }
 
 
@@ -197,9 +218,9 @@ export default function Portfolios({ lang }: { lang: string }) {
                         <h3 className="text-xl font-bold text-primary-gold group-hover:text-secondary-gold transition-colors">
                           {portfolio.name}
                         </h3>
-                        {error && (
+                        {usingMockData && (
                           <span className="text-xs text-warning-red bg-warning-red/10 px-2 py-1 rounded">
-                            Using cached data
+                            Using mock data
                           </span>
                         )}
                       </div>
@@ -207,7 +228,7 @@ export default function Portfolios({ lang }: { lang: string }) {
                       <div className="grid grid-cols-2 gap-6 mb-6">
                         <div>
                           <p className="text-sm text-text-secondary mb-1">Total Gain</p>
-                          <p className="text-2xl font-bold text-success-green">
+                          <p className={`text-2xl font-bold ${getGainColorClass(portfolio.gain)}`}>
                             {portfolio.gain.includes('+') || portfolio.gain.startsWith('-') ? '' : '+'}
                             <AnimatedNumber
                               value={extractNumber(portfolio.gain)}
@@ -242,10 +263,13 @@ export default function Portfolios({ lang }: { lang: string }) {
               {error && !loading && (
                 <div className="mt-4 p-4 bg-warning-red/10 rounded-lg border border-warning-red/20">
                   <p className="text-sm text-warning-red">
-                    ⚠️ Unable to fetch live data: {error}
+                    ⚠️ {error}
                   </p>
                   <p className="text-xs text-text-secondary mt-1">
-                    Displaying cached data. Live data will be restored automatically.
+                    {usingMockData
+                      ? "Displaying mock data. Live data will be restored automatically."
+                      : "Displaying cached data. Live data will be restored automatically."
+                    }
                   </p>
                 </div>
               )}

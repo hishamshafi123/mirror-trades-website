@@ -98,7 +98,8 @@
     "instruction": "Click \"I Understand\" to continue to the website.",
     "acceptButton": "I Understand",
     "riskDisclosureLink": "See full Risk Disclosure",
-    "termsLink": "Terms & Conditions"
+    "termsLink": "Terms & Conditions",
+    "complianceText": "By clicking \"I Understand\", you acknowledge that you have read and understood this risk warning and accept full responsibility for your investment decisions. This warning will appear periodically as required by regulation."
   },
   "newsletter": {
     "title": "Stay Updated!",

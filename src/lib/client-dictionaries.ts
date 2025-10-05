@@ -99,6 +99,7 @@ export interface Dictionary {
     acceptButton: string;
     riskDisclosureLink: string;
     termsLink: string;
+    complianceText: string;
   };
   newsletter: {
     title: string;

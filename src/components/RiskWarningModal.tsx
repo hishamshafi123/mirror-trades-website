@@ -20,7 +20,8 @@ export default function RiskWarningModal({ dictionary, lang = 'el' }: RiskWarnin
     instruction: "Click \"I Understand\" to continue to the website.",
     acceptButton: "I Understand",
     riskDisclosureLink: "See full Risk Disclosure",
-    termsLink: "Terms & Conditions"
+    termsLink: "Terms & Conditions",
+    complianceText: "By clicking \"I Understand\", you acknowledge that you have read and understood this risk warning and accept full responsibility for your investment decisions. This warning will appear periodically as required by regulation."
   }
 
   const riskWarning = dictionary?.riskWarning || fallbackWarning
@@ -184,7 +185,7 @@ export default function RiskWarningModal({ dictionary, lang = 'el' }: RiskWarnin
             {/* Additional Compliance Text */}
             <div className="bg-primary-gold/5 border border-primary-gold/20 rounded-lg p-3 mt-4">
               <p className="text-text-secondary text-xs text-center leading-relaxed">
-                Κάνοντας κλικ στο &quot;<strong>{riskWarning.acceptButton}</strong>&quot;,αναγνωρίζετε ότι έχετε διαβάσει και κατανοήσει αυτήν την προειδοποίηση κινδύνου και αποδέχεστε την πλήρη ευθύνη για τις επενδυτικές σας αποφάσεις. Αυτή η προειδοποίηση θα εμφανίζεται περιοδικά, όπως απαιτείται από τον κανονισμό..
+                {riskWarning.complianceText}
               </p>
             </div>
           </div>

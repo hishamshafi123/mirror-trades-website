@@ -3,6 +3,7 @@ import { Inter, Roboto_Mono } from "next/font/google";
 import "../globals.css"; // Adjusted path
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
+import FloatingGoldParticles from "@/components/FloatingGoldParticles";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -27,6 +28,7 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body className={`${inter.variable} ${roboto_mono.variable} font-sans bg-background-dark text-text-primary antialiased`}>
+        <FloatingGoldParticles />
         <ScrollToTop />
         <Header lang={lang} />
         {children}
