@@ -18,7 +18,7 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
   } = options
 
   const elementRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true) // Default to true for static export visibility
   const [hasTriggered, setHasTriggered] = useState(false)
 
   useEffect(() => {
