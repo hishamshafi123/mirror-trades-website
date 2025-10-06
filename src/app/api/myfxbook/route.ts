@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 // Revalidate every hour
+export const dynamic = 'force-dynamic'
+export const revalidate = 0 // Always fetch fresh data
 
 // TypeScript interfaces for Myfxbook API responses
 interface MyfxbookAccount {
