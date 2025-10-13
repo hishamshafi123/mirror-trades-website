@@ -15,6 +15,9 @@ const roboto_mono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "Mirror Trades",
   description: "Bilingual Copy Trading Platform",
+  icons: {
+    icon: '/mirror-favicon.png',
+  },
 };
 
 export default async function RootLayout({

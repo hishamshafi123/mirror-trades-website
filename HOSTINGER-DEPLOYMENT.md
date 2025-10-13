@@ -25,15 +25,19 @@ This will create an `out` folder with all your static files.
 1. **Login to Hostinger Control Panel** (hPanel)
 2. Go to **File Manager**
 3. Navigate to `public_html` folder
-4. **IMPORTANT**: Backup and delete all existing files in `public_html`
-5. Upload **ALL** contents from the `out` folder to `public_html`
+4. **IMPORTANT**: Backup and delete all existing files in `public_html` (keep only `.htaccess` if you want)
+5. **Upload EVERYTHING from the `out` folder to `public_html`**
 
-#### Files to Upload:
-- All HTML files (`index.html`, `404.html`, etc.)
-- `_next` folder (JavaScript, CSS, images)
-- `el` and `en` folders (language pages)
-- All image files (`.png`, `.svg`, `.jpg`, `.ico`)
-- `.htaccess` file (for URL routing)
+#### Critical Upload Checklist:
+- ✅ `index.html` (root redirect file)
+- ✅ `404.html`
+- ✅ `.htaccess` (enable "Show Hidden Files" in File Manager to see it)
+- ✅ **ENTIRE `_next` folder** (contains ALL JavaScript, CSS, fonts)
+- ✅ **ENTIRE `el` folder** (Greek pages with subfolders)
+- ✅ **ENTIRE `en` folder** (English pages with subfolders)
+- ✅ All image files (`favicon.ico`, `your-logo.png`, `finance-bg.jpg`, etc.)
+
+**⚠️ CRITICAL**: You MUST upload the ENTIRE `_next` directory with ALL subdirectories and files. Missing JavaScript files will cause a blank page!
 
 ### Step 3: Environment Variables (Optional)
 
@@ -94,6 +98,18 @@ The `.htaccess` file is automatically included in the build. It handles:
 
 ## 🔧 Troubleshooting
 
+### Issue: Website shows completely blank/white page ⚠️ MOST COMMON
+**Root Cause**: Missing JavaScript files from `_next` folder
+
+**Solution**:
+1. Open browser console (F12 → Console tab)
+2. Look for 404 errors loading `/_next/static/chunks/*.js` files
+3. **FIX**: Re-upload the ENTIRE `_next` folder from `out` to `public_html`
+   - DO NOT upload just individual files
+   - Upload the whole `_next` folder with all subdirectories
+4. Clear browser cache (Ctrl+Shift+R or Cmd+Shift+R)
+5. Refresh the page
+
 ### Issue: Pages show 404 error
 **Solution**: Make sure `.htaccess` file is uploaded and visible (enable "Show Hidden Files" in File Manager)
 
@@ -103,11 +119,8 @@ The `.htaccess` file is automatically included in the build. It handles:
 - Clear browser cache
 - Check file permissions (should be 644 for files, 755 for folders)
 
-### Issue: Website shows blank page
-**Solution**:
-- Check browser console for errors (F12)
-- Make sure all files from `out` folder are uploaded
-- Verify `.htaccess` syntax is correct
+### Issue: Content is invisible (opacity issue)
+**Solution**: This has been fixed in the latest build. Rebuild with `npm run build` and re-upload
 
 ### Issue: Gold particles not showing
 **Solution**:
